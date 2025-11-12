@@ -1,0 +1,42 @@
+0000000000000000000000000000000000000000 a6d919d5aa3ae30543f6db9544c1812a9993a0c0 Carlos Cadalso <carlosecadalso@gmail.com> 1759944503 -0400	clone: from https://github.com/carlosecadalso/granbluebosses.git
+a6d919d5aa3ae30543f6db9544c1812a9993a0c0 5b52284ddd21281820bc984f2d1b0b1d7d204980 Carlos Cadalso <carlosecadalso@gmail.com> 1760042771 -0400	commit: Finishes the first phase of proto baha and prepares repo for implementation of final phase
+5b52284ddd21281820bc984f2d1b0b1d7d204980 d60bd9cb188aae576686168794fa490f39914f0c Carlos Cadalso <carlosecadalso@gmail.com> 1760570399 -0400	pull: Fast-forward
+d60bd9cb188aae576686168794fa490f39914f0c 8cf80f4e092ac633567f2799b2c2559ac2df7607 Carlos Cadalso <carlosecadalso@gmail.com> 1760591837 -0400	commit: Adds SFX to Proto Baha's attacks (except Skyfall). Adds Proto Baha's phase transition anim
+8cf80f4e092ac633567f2799b2c2559ac2df7607 d82fe257fc7a122c2f2c9b2789928809fedde459 Carlos Cadalso <carlosecadalso@gmail.com> 1760648715 -0400	pull: Fast-forward
+d82fe257fc7a122c2f2c9b2789928809fedde459 2c5c880007051e69ee3b4a775518660f27f03aa2 Carlos Cadalso <carlosecadalso@gmail.com> 1760670943 -0400	commit: Finish the ProtoBaha monster. Rewards are still missing
+2c5c880007051e69ee3b4a775518660f27f03aa2 8469eb672b21c1f5f639c4fde82c341d48a73f61 Carlos Cadalso <carlosecadalso@gmail.com> 1760674558 -0400	commit: Added icons for future relics
+8469eb672b21c1f5f639c4fde82c341d48a73f61 fe7cf092c57e62fd0d4af4eecbd02c6d72e07985 Carlos Cadalso <carlosecadalso@gmail.com> 1760730477 -0400	pull: Fast-forward
+fe7cf092c57e62fd0d4af4eecbd02c6d72e07985 c261e38c446e7bf902a668fd88e111f5e06cf5d7 Carlos Cadalso <carlosecadalso@gmail.com> 1760762192 -0400	commit: Adds nearly finished code for Grand Order boss. Missing SFX and voice lines
+c261e38c446e7bf902a668fd88e111f5e06cf5d7 e2cb0b92eb699d605698b72716a51061395c2253 Carlos Cadalso <carlosecadalso@gmail.com> 1761083557 -0400	pull: Fast-forward
+e2cb0b92eb699d605698b72716a51061395c2253 17598391f1eb61f84dbfe06c3b22ed8c340f04b0 Carlos Cadalso <carlosecadalso@gmail.com> 1761246226 -0400	pull: Fast-forward
+17598391f1eb61f84dbfe06c3b22ed8c340f04b0 f3c10da79bf1bfd96c3a3ac1286c348435b1b92e Carlos Cadalso <carlosecadalso@gmail.com> 1761260837 -0400	commit: Added all remaining GO anims
+f3c10da79bf1bfd96c3a3ac1286c348435b1b92e 47a5788984e06068c692dc6aeceb05ca0e8863a9 Carlos Cadalso <carlosecadalso@gmail.com> 1761281707 -0400	commit: Added patch to replace the boss
+47a5788984e06068c692dc6aeceb05ca0e8863a9 a52f6b725bcecd4b5d1f77ff1870cafb9b8ac7a3 Carlos Cadalso <carlosecadalso@gmail.com> 1761414852 -0400	pull: Fast-forward
+a52f6b725bcecd4b5d1f77ff1870cafb9b8ac7a3 b89c9b562fa206582abab66c980694a2464c142c Carlos Cadalso <carlosecadalso@gmail.com> 1761432281 -0400	commit: Added Tiamat, Tiamat2, Colossus, and Colossus2
+b89c9b562fa206582abab66c980694a2464c142c 44e87d0ce791527e35f84ad7b9604da29398cf55 Carlos Cadalso <carlosecadalso@gmail.com> 1761597405 -0400	pull: Fast-forward
+44e87d0ce791527e35f84ad7b9604da29398cf55 64ca5b8f1119e5b3b598b52421e7b02ae2bd336e Carlos Cadalso <carlosecadalso@gmail.com> 1761617421 -0400	commit: Finished elite enemy behaivior and rewards
+64ca5b8f1119e5b3b598b52421e7b02ae2bd336e 6e8d9015b6a290ab434649482bb463190fdea6c8 Carlos Cadalso <carlosecadalso@gmail.com> 1761691196 -0400	pull: Fast-forward
+6e8d9015b6a290ab434649482bb463190fdea6c8 cda63955803cc964111a935b61a3cea876325c78 Carlos Cadalso <carlosecadalso@gmail.com> 1761695850 -0400	commit: Added audio and text dialogue
+cda63955803cc964111a935b61a3cea876325c78 4520c9b44de94812d9ea01c5c87a19a53072bc4f Carlos Cadalso <carlosecadalso@gmail.com> 1761867875 -0400	pull: Fast-forward
+4520c9b44de94812d9ea01c5c87a19a53072bc4f 31ff71e51e05b05e504f8a95a61f1924a075d18c Carlos Cadalso <carlosecadalso@gmail.com> 1761880869 -0400	commit: Added text for Act 1 events
+31ff71e51e05b05e504f8a95a61f1924a075d18c a36078abadd3bfc7515ee9198c4123bb5b42d6be Carlos Cadalso <carlosecadalso@gmail.com> 1762051697 -0400	pull: Fast-forward
+a36078abadd3bfc7515ee9198c4123bb5b42d6be 5ac9779dfbe3dd3e2a85ea65606eed870a18bd52 Carlos Cadalso <carlosecadalso@gmail.com> 1762201832 -0500	pull: Fast-forward
+5ac9779dfbe3dd3e2a85ea65606eed870a18bd52 3e0312a55d8adb8b16f275d544aa016e553e1069 Carlos Cadalso <carlosecadalso@gmail.com> 1762222284 -0500	commit: Added assets for monster animations and backgrounds
+3e0312a55d8adb8b16f275d544aa016e553e1069 f667be3f4b76a7e649b143f3641e0c5ceedb57cb Carlos Cadalso <carlosecadalso@gmail.com> 1762222548 -0500	commit: Separated textures for background into multiple files
+f667be3f4b76a7e649b143f3641e0c5ceedb57cb 554168e0d928dd00857fc1a68039628794359715 Carlos Cadalso <carlosecadalso@gmail.com> 1762299778 -0500	pull: Fast-forward
+554168e0d928dd00857fc1a68039628794359715 5df447f602e8fb3c33c180b1bf50e92453a915b3 Carlos Cadalso <carlosecadalso@gmail.com> 1762308132 -0500	commit: Added images to the entry event for act 1. Started implementation of entry event for act 1
+5df447f602e8fb3c33c180b1bf50e92453a915b3 ed25e321d44aa18b74e1955e313bfc38244c4e4e Carlos Cadalso <carlosecadalso@gmail.com> 1762357473 -0500	commit: Updating repo
+ed25e321d44aa18b74e1955e313bfc38244c4e4e b4a7b4d34b185d73e69991930168e499e56aeb22 Carlos Cadalso <carlosecadalso@gmail.com> 1762369766 -0500	pull: Fast-forward
+b4a7b4d34b185d73e69991930168e499e56aeb22 7d780954a92281b7e59e08fa18dc6d74acfb019e Carlos Cadalso <carlosecadalso@gmail.com> 1762375345 -0500	commit: Added and implemented music
+7d780954a92281b7e59e08fa18dc6d74acfb019e ee48a04278f3dcf3be36ca4840656624a7b916b0 Carlos Cadalso <carlosecadalso@gmail.com> 1762391839 -0500	commit: Added and corrected images for relics and cards
+ee48a04278f3dcf3be36ca4840656624a7b916b0 6ae578c559549337e705de5bd6aed7f66ad22395 Carlos Cadalso <carlosecadalso@gmail.com> 1762449841 -0500	commit: Added modesty filter
+6ae578c559549337e705de5bd6aed7f66ad22395 5ed9f5f203395b4e32b96a1aa4aff7672cf83f86 Carlos Cadalso <carlosecadalso@gmail.com> 1762450672 -0500	commit: Altered modesty filter
+5ed9f5f203395b4e32b96a1aa4aff7672cf83f86 b7cc9eb978f2898b3b45e29c5f64ba97293bc0d6 Carlos Cadalso <carlosecadalso@gmail.com> 1762461147 -0500	pull: Fast-forward
+b7cc9eb978f2898b3b45e29c5f64ba97293bc0d6 ddf6450876bc7524c378cff8e439ddbd7df30f5a Carlos Cadalso <carlosecadalso@gmail.com> 1762469632 -0500	commit: Fixed a bug where relic text does not show
+ddf6450876bc7524c378cff8e439ddbd7df30f5a 81013ba7a3d81a2a897773e4107731224dc67e95 Carlos Cadalso <carlosecadalso@gmail.com> 1762560822 -0500	pull: Fast-forward
+81013ba7a3d81a2a897773e4107731224dc67e95 cef6d9db0605856c3c8666f9b68d9bb41c94a18f Carlos Cadalso <carlosecadalso@gmail.com> 1762646676 -0500	commit: Fixed shrine events crash
+cef6d9db0605856c3c8666f9b68d9bb41c94a18f 676eb2f850e53e2d14075fceca9a78ee00ac81ac Carlos Cadalso <carlosecadalso@gmail.com> 1762659174 -0500	commit: Fixed a bug where hard fight would use weak fight sprites
+676eb2f850e53e2d14075fceca9a78ee00ac81ac a73e95edbab07c76bac2c08d334535f7d298c8ab Carlos Cadalso <carlosecadalso@gmail.com> 1762823126 -0500	commit: Update UI Strings for act option
+a73e95edbab07c76bac2c08d334535f7d298c8ab 5b5b048c2307fb082c5d0174e4383d330faa2563 Carlos Cadalso <carlosecadalso@gmail.com> 1762823198 -0500	commit (merge): Update UI Strings for act option
+5b5b048c2307fb082c5d0174e4383d330faa2563 68c06c3860a6b69fd2f1182cb0aeb33823c9aec0 Carlos Cadalso <carlosecadalso@gmail.com> 1762823252 -0500	commit: Update UI Strings for act option
+68c06c3860a6b69fd2f1182cb0aeb33823c9aec0 27f83a79a56a2943d08a106cb4007d6158171cf1 Carlos Cadalso <carlosecadalso@gmail.com> 1762968346 -0500	commit: Updating repo
