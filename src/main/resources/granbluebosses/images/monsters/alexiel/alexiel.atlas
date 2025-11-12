@@ -1,13 +1,48 @@
 
 alexiel.png
-size: 512,512
+size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-sprite_template
+full_body2
+  rotate: false
+  xy: 913, 1
+  size: 680, 780
+  orig: 960, 800
+  offset: 117, 5
+  index: -1
+full_body3
   rotate: false
   xy: 1, 1
-  size: 456, 380
-  orig: 456, 380
+  size: 910, 764
+  orig: 960, 800
+  offset: 45, 19
+  index: -1
+full_body
+  rotate: false
+  xy: 1, 767
+  size: 731, 609
+  orig: 732, 610
+  offset: 0, 1
+  index: -1
+sprite_mirror1
+  rotate: false
+  xy: 1595, 1
+  size: 315, 223
+  orig: 315, 223
+  offset: 0, 0
+  index: -1
+sprite_mirror2
+  rotate: false
+  xy: 1595, 226
+  size: 254, 178
+  orig: 254, 178
+  offset: 0, 0
+  index: -1
+sprite_mirror3
+  rotate: false
+  xy: 734, 767
+  size: 137, 128
+  orig: 137, 128
   offset: 0, 0
   index: -1
