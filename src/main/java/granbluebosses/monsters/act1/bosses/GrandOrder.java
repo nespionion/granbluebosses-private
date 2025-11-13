@@ -8,8 +8,11 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.ShoutAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.unique.CanLoseAction;
+import com.megacrit.cardcrawl.actions.unique.CannotLoseAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -26,9 +29,11 @@ import granbluebosses.acts.Act1Skies;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.grandorder.FieldOfMediation;
 import granbluebosses.powers.grandorder.WormholePower;
-import granbluebosses.relics.CosmicSword;
-import granbluebosses.relics.ShieldOfLamentation;
+import granbluebosses.relics.grandorder.CosmicSword;
+import granbluebosses.relics.grandorder.ShieldOfLamentation;
 import granbluebosses.util.Sounds;
+
+import java.util.ArrayList;
 
 import static granbluebosses.GranblueBosses.*;
 import static granbluebosses.GranblueBosses.monsterPath;
@@ -370,7 +375,7 @@ public class GrandOrder extends CustomMonster {
         super.damage(info);
         if (!this.isDying && this.hasPower(WormholePower.POWER_ID)){
             AbstractPower wormhole = this.getPower(WormholePower.POWER_ID);
-            if (wormhole.amount <= info.base){
+            if (wormhole.amount <= info.output){
                 addToBot(new RemoveSpecificPowerAction(this, this, WormholePower.POWER_ID));
                 this.updatePowers();
 
@@ -378,7 +383,7 @@ public class GrandOrder extends CustomMonster {
                 this.createIntent();
                 addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
             } else {
-                wormhole.amount -= info.base;
+                wormhole.amount -= info.output;
                 wormhole.updateDescription();
                 this.updatePowers();
             }

@@ -20,7 +20,7 @@ import com.megacrit.cardcrawl.vfx.combat.MindblastEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.GrimnirCall;
+import granbluebosses.cards.rewards.GrimnirCall;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.util.Sounds;
@@ -105,8 +105,6 @@ public class Grimnir extends CustomMonster {
             AbstractDungeon.getCurrRoom().playBgmInstantly("ELITE");
         }
 
-        addToBot(new ShoutAction(this, ENTRY_DIALOG));
-        addToBot(new SFXAction(Sounds.GRIMNIR_ENTRY_DIALOG));
         StanceOmen omen = new StanceOmen(this);
         omen.setUpOmen(OMEN_MULT);
         addToBot(new ApplyPowerAction(this, this, omen));
@@ -210,6 +208,8 @@ public class Grimnir extends CustomMonster {
         if (this.firstTurn) {
             this.firstTurn = false;
 
+            addToBot(new ShoutAction(this, ENTRY_DIALOG));
+            addToBot(new SFXAction(Sounds.GRIMNIR_ENTRY_DIALOG));
             this.setMove(RAMBLING, (byte) 0, Intent.BUFF);
         }
     }

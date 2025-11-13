@@ -20,7 +20,8 @@ import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.AlexielCall;
+import granbluebosses.cards.rewards.AlexielCall;
+import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.Marked;
 import granbluebosses.powers.a_monsters.MirrorBlade2;
@@ -89,9 +90,6 @@ public class Alexiel extends CustomMonster {
         } else {
             AbstractDungeon.getCurrRoom().playBgmInstantly("ELITE");
         }
-
-        addToBot(new ShoutAction(this, ENTRY_DIALOG));
-        addToBot(new SFXAction(Sounds.ALEXIEL_ENTRY_DIALOG));
     }
 
     @Override
@@ -122,7 +120,6 @@ public class Alexiel extends CustomMonster {
 
     protected void useUncrossableRealm(){
         this.gainMirrorBlde();
-
         addToBot(new GainBlockAction(this, this.uncrossableRealmBlock));
     }
 
@@ -174,6 +171,8 @@ public class Alexiel extends CustomMonster {
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
+            addToBot(new ShoutAction(this, ENTRY_DIALOG));
+            addToBot(new SFXAction(Sounds.ALEXIEL_ENTRY_DIALOG));
             this.setMove(UNCROSSABLE_REALM, (byte) 0, Intent.DEFEND_DEBUFF);
         }
     }

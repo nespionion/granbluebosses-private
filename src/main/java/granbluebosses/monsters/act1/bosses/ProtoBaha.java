@@ -4,15 +4,16 @@ import VideoTheSpire.actions.RunTopLevelEffectAction;
 import VideoTheSpire.effects.SimplePlayVideoEffect;
 import basemod.abstracts.CustomMonster;
 import com.esotericsoftware.spine.AnimationState;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.actions.common.SetMoveAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.status.Dazed;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -27,10 +28,10 @@ import com.megacrit.cardcrawl.vfx.combat.OmegaFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.DaggerOfBahamut;
-import granbluebosses.cards.HarpOfBahamut;
-import granbluebosses.cards.StaffOfBahamut;
-import granbluebosses.cards.SwordOfBahamut;
+import granbluebosses.cards.protobaha.optionCards.DaggerOfBahamut;
+import granbluebosses.cards.protobaha.optionCards.HarpOfBahamut;
+import granbluebosses.cards.protobaha.optionCards.StaffOfBahamut;
+import granbluebosses.cards.protobaha.optionCards.SwordOfBahamut;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.OverdriveState;
 import granbluebosses.powers.StanceOmen;
@@ -335,16 +336,16 @@ public class ProtoBaha extends CustomMonster {
         super.damage(info);
         if (!this.isDying && this.hasPower(StandbyState.POWER_ID)){
             StandbyState tempPower = (StandbyState) this.getPower(StandbyState.POWER_ID);
-            tempPower.lowerAmount(info.base);
+            tempPower.lowerAmount(info.output);
         } else if (!this.isDying && this.hasPower(OverdriveState.POWER_ID)){
             OverdriveState tempPower = (OverdriveState) this.getPower(OverdriveState.POWER_ID);
 
-            if (tempPower.amount <= info.base) {
+            if (tempPower.amount <= info.output) {
                 addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
                 addToBot(new SetMoveAction(this, (byte)6, Intent.STUN));
                 this.createIntent();
             }
-            tempPower.lowerAmount(info.base);
+            tempPower.lowerAmount(info.output);
         }
 
         if (!this.isDying && this.currentHealth * 2 <= this.maxHealth && this.isBeforePhase2Transition) {
@@ -399,35 +400,25 @@ public class ProtoBaha extends CustomMonster {
 
     protected void useReginleiv(){
 
-        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 0.5F));
+        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 1.5F));
 
-        int extra_hits = 0;
-        if (this.hasPower(makeID(OverdriveState.POWER_ID))){
-            extra_hits = 2;
+        if (this.hasPower(makeID(OverdriveState.class.getSimpleName()))){
+            for (int i = 0; i < this.reginleivHits + (2 * this.inOverdrive()); i++){
+                addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(REGINLEIV_INDEX)));
+                addToBot(new SFXAction(Sounds.PBHL_REGINLEIV));
+            }
         }
-
-        for (int i = 0; i < this.reginleivHits + extra_hits; i++){
-            addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(REGINLEIV_INDEX), AbstractGameAction.AttackEffect.FIRE));
-            addToBot(new SFXAction(Sounds.PBHL_REGINLEIV));
-        }
-
     }
 
     protected void useReginleivRecidive(){
 
-
-        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 0.5F));
-
-        int extra_hits = 0;
-        if (this.hasPower(makeID(OverdriveState.POWER_ID))){
-            extra_hits = 2;
+        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 1.5F));
+        if (this.hasPower(makeID(OverdriveState.class.getSimpleName()))){
+            for (int i = 0; i < this.reginleivRecidiveHits + 2; i++){
+                addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(REGINLEIV_RECIDIVE_INDEX)));
+                addToBot(new SFXAction(Sounds.PBHL_REGINLEIV));
+            }
         }
-
-        for (int i = 0; i < this.reginleivRecidiveHits + extra_hits; i++){
-            addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(REGINLEIV_RECIDIVE_INDEX), AbstractGameAction.AttackEffect.FIRE));
-            addToBot(new SFXAction(Sounds.PBHL_REGINLEIV));
-        }
-
     }
 
     protected void useArcadia(){
@@ -435,6 +426,9 @@ public class ProtoBaha extends CustomMonster {
         addToBot(new SFXAction(Sounds.PBHL_ARCADIA));
 
         this.useArcadiaDebuff(1);
+        if (this.hasPower(makeID(OverdriveState.class.getSimpleName()))){
+            this.useArcadiaDebuff(1);
+        }
         if (AbstractDungeon.ascensionLevel >= 19){
             this.useArcadiaDebuff(1);
         }
@@ -445,6 +439,9 @@ public class ProtoBaha extends CustomMonster {
         addToBot(new SFXAction(Sounds.PBHL_ARCADIA));
 
         this.useArcadiaDebuff(2);
+        if (this.hasPower(OverdriveState.POWER_ID)){
+            this.useArcadiaDebuff(2);
+        }
         if (AbstractDungeon.ascensionLevel >= 19){
             this.useArcadiaDebuff(2);
         }
@@ -460,14 +457,26 @@ public class ProtoBaha extends CustomMonster {
         4: Neg Strength
         */
         int debuffToInflict = AbstractDungeon.aiRng.random(3);
-
-        addToBot(new ApplyPowerAction(p, this, new WeakPower(p, stacks, true)));
-        addToBot(new ApplyPowerAction(p, this, new FrailPower(p, stacks, true)));
-        addToBot(new ApplyPowerAction(p, this, new VulnerablePower(p, stacks, true)));
-        if (stacks > 1 || this.hasPower(OverdriveState.POWER_ID)){
-            this.addToBot(new ApplyPowerAction(p, this, new StrengthPower(p, -1), -1));
+        switch (debuffToInflict){
+            case 0:
+                addToBot(new ApplyPowerAction(p, this, new WeakPower(p, stacks, true)));
+                break;
+            case 1:
+                addToBot(new ApplyPowerAction(p, this, new FrailPower(p, stacks, true)));
+                break;
+            case 2:
+                addToBot(new ApplyPowerAction(p, this, new VulnerablePower(p, stacks, true)));
+                break;
+            case 3:
+                addToBot(new MakeTempCardInDiscardAction(new Dazed(), stacks));
+                break;
+            default:
+                this.addToBot(new ApplyPowerAction(p, this, new StrengthPower(p, -stacks), -1));
+                if (!p.hasPower("Artifact")) {
+                    this.addToBot(new ApplyPowerAction(p, this, new GainStrengthPower(p, stacks), stacks));
+                }
+                break;
         }
-
     }
 
     protected void useAbdakForce(){

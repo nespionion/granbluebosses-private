@@ -26,7 +26,8 @@ import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
 import com.megacrit.cardcrawl.vfx.combat.SweepingBeamEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.ShivaCall;
+import granbluebosses.cards.rewards.ShivaCall;
+import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.powers.a_monsters.PathOfDestruction;
@@ -104,9 +105,6 @@ public class Shiva extends CustomMonster {
         } else {
             AbstractDungeon.getCurrRoom().playBgmInstantly("ELITE");
         }
-
-        addToBot(new ShoutAction(this, ENTRY_DIALOG));
-        addToBot(new SFXAction(Sounds.SHIVA_ENTRY_DIALOG));
 
         StanceOmen omen = new StanceOmen(this);
         omen.setUpOmen(OMEN_MULT);
@@ -231,6 +229,8 @@ public class Shiva extends CustomMonster {
         if (this.firstTurn) {
             this.firstTurn = false;
 
+            addToBot(new ShoutAction(this, ENTRY_DIALOG));
+            addToBot(new SFXAction(Sounds.SHIVA_ENTRY_DIALOG));
             this.setMove(RUDRA, (byte) 0, Intent.BUFF);
 
         }

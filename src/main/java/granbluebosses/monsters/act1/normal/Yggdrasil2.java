@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -21,10 +22,13 @@ import com.megacrit.cardcrawl.vfx.combat.HeartBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.YggdrasilOmega;
+import granbluebosses.cards.rewards.TiamatOmega;
+import granbluebosses.cards.rewards.YggdrasilOmega;
 import granbluebosses.config.ConfigMenu;
+import granbluebosses.events.CelesteEvent;
 import granbluebosses.events.YggdrasilEvent;
 import granbluebosses.powers.StanceOmen;
+import granbluebosses.powers.a_monsters.DebuffOnHit;
 import granbluebosses.util.Sounds;
 
 import java.util.ArrayList;
@@ -94,9 +98,6 @@ public class Yggdrasil2 extends CustomMonster {
         StanceOmen omen = new StanceOmen(this);
         omen.setUpOmen(OMEN_MULT);
         addToTop(new ApplyPowerAction(this, this, omen));
-
-        addToTop(new ApplyPowerAction(this, this, new CuriosityPower(this, 1)));
-
         super.usePreBattleAction();
 
         if (ConfigMenu.enableDMCAMusic){
@@ -114,7 +115,7 @@ public class Yggdrasil2 extends CustomMonster {
                 this.useAxisMundi();
                 break;
             case 2:
-                this.useSongOfGraceHurt();
+                this.useSongOfGraceHeal();
             case 3:
                 this.useSongOfGraceHurt();
         }
@@ -156,16 +157,19 @@ public class Yggdrasil2 extends CustomMonster {
         for (int i = 0; i < songOfGraceHits; i++){
             addToBot(new VFXAction(this, new ShockWaveEffect(this.hb.cX, this.hb.cY, Settings.GREEN_TEXT_COLOR, ShockWaveEffect.ShockWaveType.NORMAL), 0.3F));
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(SONG_OF_GRACE_INDEX), AbstractGameAction.AttackEffect.NONE));
-            addToBot(new HealAction(AbstractDungeon.player, this, this.damage.get(SONG_OF_GRACE_INDEX).output));
+        }
+    }
+
+    protected void useSongOfGraceHeal(){
+        for (int i = 0; i < songOfGraceHits; i++){
+            addToBot(new VFXAction(this, new ShockWaveEffect(this.hb.cX, this.hb.cY, Settings.GREEN_TEXT_COLOR, ShockWaveEffect.ShockWaveType.NORMAL), 0.3F));
+            addToBot(new GainBlockAction(AbstractDungeon.player, this.damage.get(SONG_OF_GRACE_INDEX).output));
         }
     }
 
     protected void prepareIntent() {
         if (this.currentHealth * this.OMEN_MULT <= this.maxHealth && trigger){
-
-            this.songOfGraceHits = AbstractDungeon.actionManager.cardsPlayedThisCombat.size() + 1;
-            addToBot(new SetMoveAction(this, SONG_OF_GRACE, (byte)3, Intent.ATTACK, this.songOfGraceDmg, this.songOfGraceHits, true));
-
+            this.prepareSongOfGrace();
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
             return;
@@ -195,6 +199,27 @@ public class Yggdrasil2 extends CustomMonster {
             addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
         } else {
             addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false));
+        }
+    }
+
+    protected void prepareSongOfGrace(){
+        AbstractPlayer p = AbstractDungeon.player;
+        int buffCount = 0;
+        int debuffCount = 0;
+
+        for (AbstractPower pow : p.powers){
+            if (pow.type == AbstractPower.PowerType.DEBUFF){
+                debuffCount++;
+            } else {
+                buffCount++;
+            }
+        }
+
+        if (buffCount > debuffCount){
+            addToBot(new SetMoveAction(this, SONG_OF_GRACE, (byte)2, Intent.DEFEND));
+        } else {
+            this.songOfGraceHits = debuffCount - buffCount;
+            addToBot(new SetMoveAction(this, SONG_OF_GRACE, (byte)3, Intent.ATTACK, this.songOfGraceDmg, this.songOfGraceHits, true));
         }
     }
 

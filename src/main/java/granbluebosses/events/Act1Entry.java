@@ -14,10 +14,10 @@ import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import granbluebosses.GranblueBosses;
-import granbluebosses.cards.*;
+import granbluebosses.cards.rewards.*;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.relics.BlueCrystal;
-import granbluebosses.relics.ShieldOfTenets;
+import granbluebosses.relics.events.BlueCrystal;
+import granbluebosses.relics.events.ShieldOfTenets;
 
 import java.util.ArrayList;
 

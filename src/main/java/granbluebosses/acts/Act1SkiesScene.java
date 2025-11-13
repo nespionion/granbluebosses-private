@@ -36,7 +36,6 @@ public class Act1SkiesScene extends AbstractScene {
     private final TextureAtlas.AtlasRegion europaFight;
     private final TextureAtlas.AtlasRegion grimnirFight;
     private final TextureAtlas.AtlasRegion shivaFight;
-    private final TextureAtlas.AtlasRegion campfireBg;
     private final TextureAtlas.AtlasRegion campfireGlow;
     private final TextureAtlas.AtlasRegion campfireKindling;
     private TextureAtlas.AtlasRegion battleRoom;
@@ -52,7 +51,6 @@ public class Act1SkiesScene extends AbstractScene {
         this.tmpColor = new Color(1.0F, 1.0F, 1.0F, 1.0F);
         this.whiteColor = new Color(1.0F, 1.0F, 1.0F, 1.0F);
         this.bg = this.atlas.findRegion("bg");
-        this.campfireBg = this.atlas.findRegion("campfire");
 
         TextureAtlas campfireAtlas = new TextureAtlas(Gdx.files.internal("bottomScene/scene.atlas"));
         this.campfireGlow = campfireAtlas.findRegion("mod/campfireGlow");
@@ -121,89 +119,97 @@ public class Act1SkiesScene extends AbstractScene {
         if (this.currRoom == null || !this.isMonsterPresent(AbstractDungeon.getCurrRoom(), this.currMonsterId)){
             this.currRoom = AbstractDungeon.getCurrRoom();
         }
-        if (this.currMonsterId != null && this.isMonsterPresent(this.currRoom, this.currMonsterId)){
-            return;
-        }
-        if (!(this.currRoom instanceof MonsterRoom) && !this.currRoom.combatEvent){
-            this.battleRoom = this.bg;
-        } else if (this.currRoom.combatEvent || (this.currRoom instanceof MonsterRoom && !(this.currRoom instanceof MonsterRoomBoss))){
+        if (this.currRoom instanceof MonsterRoom){
+//            GranblueBosses.logger.info("Monster room found");
+            if (this.currMonsterId != null && this.isMonsterPresent(this.currRoom, this.currMonsterId)){
+                return;
+            }
+
             if (this.isMonsterPresent(this.currRoom, Celeste.MONSTER_ID)
-                    || this.isMonsterPresent(this.currRoom, Celeste2.NAME) ){
+                    || this.isMonsterPresent(this.currRoom, Celeste2.MONSTER_ID) ){
+                GranblueBosses.logger.info("Celeste battle found. Loading Celeste room");
                 this.battleRoom = this.celesteFight;
             } else if (this.isMonsterPresent(this.currRoom, Colossus.MONSTER_ID)
                     || this.isMonsterPresent(this.currRoom, Colossus2.MONSTER_ID) ){
+                GranblueBosses.logger.info("Colossus battle found. Loading Colossus room");
                 this.battleRoom = this.colosusFight;
             } else if (this.isMonsterPresent(this.currRoom, Leviathan.MONSTER_ID)
                     || this.isMonsterPresent(this.currRoom, Leviathan2.MONSTER_ID) ){
+                GranblueBosses.logger.info("Levi battle found. Loading Levi room");
                 this.battleRoom = this.leviathanFight;
             } else if (this.isMonsterPresent(this.currRoom, Luminiera.MONSTER_ID)
                     || this.isMonsterPresent(this.currRoom, Luminiera2.MONSTER_ID) ){
+                GranblueBosses.logger.info("Lumi battle found. Loading Lumi room");
                 this.battleRoom = this.luminieraFight;
             } else if (this.isMonsterPresent(this.currRoom, Tiamat.MONSTER_ID)
                     || this.isMonsterPresent(this.currRoom, Tiamat2.MONSTER_ID) ){
+                GranblueBosses.logger.info("Tiamat battle found. Loading Tiamat room");
                 this.battleRoom = this.tiamatFight;
             } else if (this.isMonsterPresent(this.currRoom, Yggdrasil.MONSTER_ID)
                     || this.isMonsterPresent(this.currRoom, Yggdrasil2.MONSTER_ID) ){
+                GranblueBosses.logger.info("Yggy battle found. Loading Yggy room");
                 this.battleRoom = this.yggdrasilFight;
             } else if (this.isMonsterPresent(this.currRoom, Shiva.MONSTER_ID) ){
+                GranblueBosses.logger.info("Shiva battle found. Loading Shiva room");
                 this.battleRoom = this.shivaFight;
             } else if (this.isMonsterPresent(this.currRoom, Grimnir.MONSTER_ID) ){
+                GranblueBosses.logger.info("Grimnir battle found. Loading Grimnir room");
                 this.battleRoom = this.grimnirFight;
             } else if (this.isMonsterPresent(this.currRoom, Alexiel.MONSTER_ID) ){
+                GranblueBosses.logger.info("Alex battle found. Loading Alex room");
                 this.battleRoom = this.alexFight;
             } else if (this.isMonsterPresent(this.currRoom, Europa.MONSTER_ID) ){
+                GranblueBosses.logger.info("Europa battle found. Loading Europa room");
                 this.battleRoom = this.europaFight;
+            } else if (this.isMonsterPresent(this.currRoom, ProtoBaha.MONSTER_ID) ){
+                GranblueBosses.logger.info("PBHL battle found. Loading PBHL room");
+                this.battleRoom = this.protoBaha1Fight;
+            } else if (this.isMonsterPresent(this.currRoom, GrandOrder.MONSTER_ID) ){
+                GranblueBosses.logger.info("GOHL battle found. Loading GOHL room");
+                this.battleRoom = this.grandOrder1Fight;
             } else {
+                GranblueBosses.logger.info("No unique bg monster found");
                 this.battleRoom = this.bg;
             }
 
             if (!AbstractDungeon.getCurrRoom().monsters.monsters.isEmpty()){
-                this.currMonsterId = AbstractDungeon.getCurrRoom().monsters.monsters.get(0).id;
-            }
-        } else if (this.currRoom instanceof MonsterRoomBoss){
-             if (this.isMonsterPresent(this.currRoom, ProtoBaha.MONSTER_ID) ){
-                this.battleRoom = this.protoBaha1Fight;
-             } else if (this.isMonsterPresent(this.currRoom, GrandOrder.MONSTER_ID) ){
-                 this.battleRoom = this.grandOrder1Fight;
-             } else {
-                 this.battleRoom = this.bg;
-             }
-
-            if (!AbstractDungeon.getCurrRoom().monsters.monsters.isEmpty()){
+                GranblueBosses.logger.info("Storing monster ID.");
                 this.currMonsterId = AbstractDungeon.getCurrRoom().monsters.monsters.get(0).id;
             }
         } else {
+            GranblueBosses.logger.info("Not a monster room.");
             this.battleRoom = this.bg;
         }
 
-        if (this.currRoom == null){
+
+        // This is for safety reasons: this.battleRoom needs to NOT be null,
+        // so I am insuring it has some value, even if not the correct one
+        if (this.battleRoom == null){
+            GranblueBosses.logger.info("WARNING: The room is null incorrectly.");
             this.battleRoom = this.bg;
         }
-    }
-
-    private enum ColumnConfig {
-        OPEN,
-        SMALL_ONLY,
-        SMALL_PLUS_LEFT,
-        SMALL_PLUS_RIGHT;
     }
 
     public boolean isMonsterPresent(AbstractRoom room, String id) {
-        if (id == null || room == null || room.monsters == null || room.monsters.monsters.isEmpty()){
+        if (id == null || room == null){
+            GranblueBosses.logger.info("A parameter of isMonsterPresent is null.");
+            return false;
+        }
+        if (room.monsters == null){
+            GranblueBosses.logger.info("This room cannot contain monsters.");
+            return false;
+        }
+        if (room.monsters.monsters.isEmpty()){
+            GranblueBosses.logger.info("There are no monsters in this room.");
             return false;
         }
         for (String monsterId : room.monsters.getMonsterNames()){
             if (monsterId.equals(id)){
+//                GranblueBosses.logger.info("Monster was found.");
                 return true;
             }
         }
+        GranblueBosses.logger.info("Monster ID not found among monsters in this room.");
         return false;
-//        for(AbstractMonster m : room.monsters.monsters) {
-//            if (m.id.equals(id)) {
-//                return m;
-//            }
-//        }
-//
-//        return null;
     }
 }

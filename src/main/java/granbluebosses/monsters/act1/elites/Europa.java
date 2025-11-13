@@ -4,6 +4,7 @@ import basemod.abstracts.CustomMonster;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
 import com.megacrit.cardcrawl.actions.animations.ShoutAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
@@ -11,17 +12,26 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Dazed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.powers.EntanglePower;
 import com.megacrit.cardcrawl.powers.RegenerateMonsterPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
+import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
+import com.megacrit.cardcrawl.vfx.combat.EntangleEffect;
+import com.megacrit.cardcrawl.vfx.combat.SweepingBeamEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.EuropaCall;
+import granbluebosses.cards.rewards.EuropaCall;
+import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
+import granbluebosses.powers.a_monsters.PathOfDestruction;
 import granbluebosses.util.Sounds;
 
 import java.util.ArrayList;
@@ -95,9 +105,6 @@ public class Europa extends CustomMonster {
             AbstractDungeon.getCurrRoom().playBgmInstantly("ELITE");
         }
 
-        addToBot(new ShoutAction(this, ENTRY_DIALOG));
-        addToBot(new SFXAction(Sounds.EUROPA_ENTRY_DIALOG));
-
         StanceOmen omen = new StanceOmen(this);
         omen.setUpOmen(OMEN_MULT);
         addToBot(new ApplyPowerAction(this, this, omen));
@@ -123,7 +130,6 @@ public class Europa extends CustomMonster {
     }
 
     protected void useFloralPrison(){
-
         addToBot(new AnimateSlowAttackAction(this));
 
         addToBot(new MakeTempCardInDrawPileAction(new Dazed(), floralPrisonStacks, true, true, false));
@@ -173,6 +179,8 @@ public class Europa extends CustomMonster {
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
+            addToBot(new ShoutAction(this, ENTRY_DIALOG));
+            addToBot(new SFXAction(Sounds.EUROPA_ENTRY_DIALOG));
             this.setMove(FLORAL_PRISON, (byte) 0, Intent.DEBUFF);
         }
     }
