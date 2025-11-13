@@ -40,11 +40,11 @@ public class LuminieraOmega extends BaseCard {
     public void use(AbstractPlayer p, AbstractMonster abstractMonster) {
         addToBot(new DamageAction(abstractMonster, new DamageInfo(p, damage, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_HEAVY));
 
-        if (abstractMonster.hasPower(StrengthPower.POWER_ID) && abstractMonster.getPower(StrengthPower.POWER_ID).amount > 1){
+        if (abstractMonster.hasPower(StrengthPower.POWER_ID) && abstractMonster.getPower(StrengthPower.POWER_ID).amount >= 1){
             addToBot(new RemoveSpecificPowerAction(abstractMonster, p, StrengthPower.POWER_ID));
         }
 
-        if (abstractMonster.hasPower(DexterityPower.POWER_ID) && abstractMonster.getPower(DexterityPower.POWER_ID).amount > 1){
+        if (abstractMonster.hasPower(DexterityPower.POWER_ID) && abstractMonster.getPower(DexterityPower.POWER_ID).amount >= 1){
             addToBot(new RemoveSpecificPowerAction(abstractMonster, p, DexterityPower.POWER_ID));
         }
     }
