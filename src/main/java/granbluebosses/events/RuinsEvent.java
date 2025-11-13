@@ -37,8 +37,10 @@ public class RuinsEvent extends PhasedEvent {
         this.registerPhase("start", new TextPhase(DESCRIPTIONS[0])
                 .addOption(new TextPhase.OptionInfo(OPTIONS[0] + this.cardsObtained + OPTIONS[1]).enabledCondition(() -> true, OPTIONS[0] + this.cardsObtained + OPTIONS[1])
                         .setOptionResult((i)->{
+
                             AbstractDungeon.getCurrRoom().rewards.clear();
-                            for (int k = 0; k < this.cardsObtained; k++){
+
+                            for (int k = 0; k < this.cardsObtained - 1; k++){
                                 AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(AbstractDungeon.player.getCardColor()));
                             }
                             AbstractDungeon.combatRewardScreen.open();

@@ -1,13 +1,20 @@
 
 grimnir.png
-size: 1024,1024
+size: 2048,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Summon_b_2040261000
   rotate: false
-  xy: 1, 1
+  xy: 647, 1
   size: 640, 628
   orig: 640, 628
   offset: 0, 0
+  index: -1
+Npc_zoom_3040212000_03
+  rotate: false
+  xy: 1, 1
+  size: 644, 780
+  orig: 960, 800
+  offset: 159, 10
   index: -1

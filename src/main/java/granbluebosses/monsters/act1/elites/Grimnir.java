@@ -10,12 +10,14 @@ import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.vfx.combat.LaserBeamEffect;
 import com.megacrit.cardcrawl.vfx.combat.MindblastEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 import granbluebosses.GranblueBosses;
@@ -91,6 +93,7 @@ public class Grimnir extends CustomMonster {
         }
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
+        this.state.setAnimation(0, "idle", true);
 
         this.damage.add(new DamageInfo(this, divineWindDmg, DamageInfo.DamageType.NORMAL));
         this.damage.add(new DamageInfo(this, holyRayOfPurificationDmg, DamageInfo.DamageType.NORMAL));
@@ -157,8 +160,13 @@ public class Grimnir extends CustomMonster {
         addToBot(new ShoutAction(this, HOLY_RAY_DIALOG));
         addToBot(new SFXAction(Sounds.GRIMNIR_HOLY_RAY_DIALOG));
 
-        this.addToBot(new VFXAction(this, new MindblastEffect(this.dialogX, this.dialogY, this.flipHorizontal), 0.1F));
+        this.state.setAnimation(0, "holy_ray", false);
+        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 0.5F));
         addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(HOLY_RAY_OF_PURIFICATION_INDEX), AbstractGameAction.AttackEffect.FIRE));
+
+        this.state.addAnimation(0, "idle", true, 0.0f);
+
+
     }
     
     protected void useRunAway(){

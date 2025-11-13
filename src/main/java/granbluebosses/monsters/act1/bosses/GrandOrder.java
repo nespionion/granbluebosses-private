@@ -237,7 +237,7 @@ public class GrandOrder extends CustomMonster {
         this.gammaRay2Ready = true; // Change to false after second Gamma Ray
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
-        AnimationState.TrackEntry idle1 = this.state.setAnimation(0, "idle1", true);
+        this.state.setAnimation(0, "idle1", true);
 
         this.damage.add(new DamageInfo(this, this.spinningSlashDmg));
         this.damage.add(new DamageInfo(this, this.bisectionDmg));

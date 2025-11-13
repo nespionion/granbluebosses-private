@@ -2,6 +2,7 @@ package granbluebosses.monsters.act1.elites;
 
 import basemod.abstracts.CustomMonster;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.AnimateFastAttackAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
 import com.megacrit.cardcrawl.actions.animations.ShoutAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
@@ -77,6 +78,7 @@ public class Alexiel extends CustomMonster {
         }
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
+        this.state.setAnimation(0, "idle", true);
 
         this.damage.add(new DamageInfo(this, this.mirrorBladeHelixDmg, DamageInfo.DamageType.NORMAL));
 
@@ -120,29 +122,42 @@ public class Alexiel extends CustomMonster {
 
     protected void useUncrossableRealm(){
         this.gainMirrorBlde();
+        if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
+            this.state.setAnimation(0, "mirror", false);
+            this.state.addAnimation(0, "idle_mirror", true, 0.0f);
+        }
+
         addToBot(new GainBlockAction(this, this.uncrossableRealmBlock));
     }
 
     protected void useMirrorBladeEruption(){
-        addToBot(new AnimateSlowAttackAction(this));
 
-        this.gainMirrorBlde();
+        this.state.setAnimation(0, "mirror_eruption", false);
 
+        if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
+            this.gainMirrorBlde();
+        }
+        this.state.addAnimation(0, "idle_mirror", true, 0.0f);
+
+        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, 2, true), 2));
         addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new Marked(AbstractDungeon.player)));
     }
 
     protected void useMirrorBladeHelix(){
-        addToBot(new AnimateSlowAttackAction(this));
+
 
         addToBot(new ShoutAction(this, HELIX_DIALOG));
         addToBot(new SFXAction(Sounds.ALEXIEL_HELIX_DIALOG));
 
         for (int i = 0; i < this.mirrorBladeHelixHits; i++){
+            addToBot(new AnimateFastAttackAction(this));
+
             this.addToBot(new SFXAction("ATTACK_WHIRLWIND"));
-            this.addToBot(new VFXAction(new WhirlwindEffect(), 0.0F));
+            this.addToBot(new VFXAction(new WhirlwindEffect(), 0.1F));
 
             this.addToBot(new SFXAction("ATTACK_HEAVY"));
-            this.addToBot(new VFXAction(this, new CleaveEffect(true), 0.0F));
+            this.addToBot(new VFXAction(this, new CleaveEffect(true), 0.1F));
+
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(0), AbstractGameAction.AttackEffect.NONE));
         }
     }

@@ -92,6 +92,7 @@ public class Europa extends CustomMonster {
         }
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
+        this.state.setAnimation(0, "idle", true);
 
         this.damage.add(new DamageInfo(this, this.manaBlastDmg, DamageInfo.DamageType.NORMAL));
         this.damage.add(new DamageInfo(this, this.taurusBlightDmg, DamageInfo.DamageType.NORMAL));
@@ -136,7 +137,8 @@ public class Europa extends CustomMonster {
     }
 
     protected void useManaBlast(){
-        addToBot(new AnimateSlowAttackAction(this));
+        this.state.setAnimation(0, "mana_burst", false);
+        this.state.addAnimation(0, "idle", true, 0.0f);
 
         for (int i = 0; i < this.manaBlastHits; i++){
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(MANA_BLAST_INDEX), AbstractGameAction.AttackEffect.LIGHTNING));
@@ -147,7 +149,11 @@ public class Europa extends CustomMonster {
         addToBot(new ShoutAction(this, TAURUS_DIALOG));
         addToBot(new SFXAction(Sounds.EUROPA_TAURUS_DIALOG));
 
+        this.state.setAnimation(0, "taurus", false);
+        this.state.addAnimation(0, "idle", true, 0.0f);
+
         addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(TAURUS_BLIGHT_INDEX), AbstractGameAction.AttackEffect.LIGHTNING));
+
         addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, this.taurusBlightStacks + 1)));
         addToBot(new ApplyPowerAction(this, this, new RegenerateMonsterPower(this, this.taurusBlightStacks)));
     }

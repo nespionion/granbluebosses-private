@@ -82,11 +82,11 @@ public class GranblueBosses implements
     // TODO IMPORTANT :
     /*
 
-    1. Finish making the sprites for Alexiel
-    2. Add a 1-frame attack animations for each enemy
-    3. Fix bug where relic is replaced with circlet upon loading from an auto-save
+    1. Test laser beam animations for PBHL and Grimnir
+    2. Add a 1-frame attack animations for each enemy (Shiva Missing)
     4. Edit the Leviathan texture so the player does not look like they are in the water
     5. Test the event adding after omega fights
+    6. Test ruins event rewards amount
 
     * */
 

@@ -154,7 +154,7 @@ public class ProtoBaha extends CustomMonster {
         this.damage.add(new DamageInfo(this, this.reginleivDmg));
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
-        AnimationState.TrackEntry idle1 = this.state.setAnimation(0, "idle1", true);
+        this.state.setAnimation(0, "idle1", true);
     }
 
     public ProtoBaha(int initialHP){
@@ -343,9 +343,11 @@ public class ProtoBaha extends CustomMonster {
             if (tempPower.amount <= info.output) {
                 addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
                 addToBot(new SetMoveAction(this, (byte)6, Intent.STUN));
+//                this.setMove(UNCHAIN, (byte)6, Intent.STUN);
                 this.createIntent();
             }
             tempPower.lowerAmount(info.output);
+            return;
         }
 
         if (!this.isDying && this.currentHealth * 2 <= this.maxHealth && this.isBeforePhase2Transition) {
@@ -353,8 +355,6 @@ public class ProtoBaha extends CustomMonster {
             addToBot(new SetMoveAction(this, UNCHAIN, (byte)5, Intent.UNKNOWN));
             this.createIntent();
         }
-
-
 
     }
 
@@ -376,8 +376,8 @@ public class ProtoBaha extends CustomMonster {
     protected void useRagField(){
 //        addToBot(new VFXAction(this, new ShockWaveEffect(this.hb.cX, this.hb.cY, Settings.GREEN_TEXT_COLOR, ShockWaveEffect.ShockWaveType.ADDITIVE), 0.3F));
 
-        AnimationState.TrackEntry rag_field = this.state.setAnimation(0, "rag_field", false);
-        AnimationState.TrackEntry idle1 = this.state.addAnimation(0, "idle1", true, 0.0f);
+        this.state.setAnimation(0, "rag_field", false);
+        this.state.addAnimation(0, "idle1", true, 0.0f);
 
         addToBot(new SFXAction(Sounds.PBHL_RAG_FIELD));
 
@@ -392,7 +392,10 @@ public class ProtoBaha extends CustomMonster {
     }
 
     protected void useSuperNova(){
-        addToBot(new VFXAction(new OmegaFlashEffect(this.hb.cX, this.hb.cY ), 0.3F));
+        this.state.setAnimation(0, "supernova", false);
+        this.state.addAnimation(0, "idle1", true, 0.0f);
+        
+//        addToBot(new VFXAction(new OmegaFlashEffect(this.hb.cX, this.hb.cY ), 0.3F));
 
         addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(SUPERNOVA_INDEX)));
 
@@ -400,10 +403,10 @@ public class ProtoBaha extends CustomMonster {
 
     protected void useReginleiv(){
 
-        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 1.5F));
-
         if (this.hasPower(makeID(OverdriveState.class.getSimpleName()))){
             for (int i = 0; i < this.reginleivHits + (2 * this.inOverdrive()); i++){
+                addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 0.1F));
+
                 addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(REGINLEIV_INDEX)));
                 addToBot(new SFXAction(Sounds.PBHL_REGINLEIV));
             }
@@ -412,9 +415,10 @@ public class ProtoBaha extends CustomMonster {
 
     protected void useReginleivRecidive(){
 
-        addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 1.5F));
         if (this.hasPower(makeID(OverdriveState.class.getSimpleName()))){
             for (int i = 0; i < this.reginleivRecidiveHits + 2; i++){
+                addToBot(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 0.1F));
+
                 addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(REGINLEIV_RECIDIVE_INDEX)));
                 addToBot(new SFXAction(Sounds.PBHL_REGINLEIV));
             }
