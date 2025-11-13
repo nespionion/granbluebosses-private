@@ -3,13 +3,26 @@ package granbluebosses;
 import actlikeit.dungeons.CustomDungeon;
 import basemod.AutoAdd;
 import basemod.BaseMod;
+import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import basemod.ModPanel;
+import com.badlogic.gdx.utils.compression.lzma.Base;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.BlueCandle;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.BaseCard;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.relics.BaseRelic;
+import granbluebosses.relics.events.AzureFeather;
+import granbluebosses.relics.events.BlueCrystal;
+import granbluebosses.relics.events.ShieldOfTenets;
+import granbluebosses.relics.grandorder.CosmicSword;
+import granbluebosses.relics.grandorder.ShieldOfLamentation;
+import granbluebosses.relics.grandorder.VerdantAzurite;
+import granbluebosses.relics.protobaha.*;
+import granbluebosses.relics.rosequeen.CrystalRose;
+import granbluebosses.relics.rosequeen.RoseShield;
 import granbluebosses.util.GeneralUtils;
 import granbluebosses.util.KeywordInfo;
 import granbluebosses.util.Sounds;
@@ -317,29 +330,57 @@ public class GranblueBosses implements
 
     @Override
     public void receiveEditRelics() {
-        new AutoAdd(modID) //Loads files from this mod
-                .packageFilter(BaseRelic.class) //In the same package as this class
-                .any(BaseRelic.class, (info, relic) -> { //Run this code for any classes that extend this class
-                    if (relic.pool != null) {
-                        BaseMod.addRelicToCustomPool(relic, relic.pool); //Register a custom character specific relic
-                        logger.info("Adding " + relic + " to pool: " + relic.pool);
-                    } else {
-                        BaseMod.addRelic(relic, relic.relicType); //Register a shared or base game character specific relic
-                        logger.info("Adding " + relic + " of relic type: " + relic.relicType);
-                    }
 
-                    //If the class is annotated with @AutoAdd.Seen, it will be marked as seen, making it visible in the relic library.
-                    //If you want all your relics to be visible by default, just remove this if statement.
-                    if (info.seen)
-                        UnlockTracker.markRelicAsSeen(relic.relicId);
-                });
+        // Add relics obtained from events
+        BaseMod.addRelic(new AzureFeather(), RelicType.SHARED);
+        BaseMod.addRelic(new BlueCrystal(), RelicType.SHARED);
+        BaseMod.addRelic(new ShieldOfTenets(), RelicType.SHARED);
+
+        // Grand Order
+        BaseMod.addRelic(new CosmicSword(), RelicType.SHARED);
+        BaseMod.addRelic(new ShieldOfLamentation(), RelicType.SHARED);
+        BaseMod.addRelic(new VerdantAzurite(), RelicType.SHARED);
+
+        // ProtoBaha
+        BaseMod.addRelic(new DaggerOfBahamut(), RelicType.SHARED);
+        BaseMod.addRelic(new DaggerOfBahamutCoda(), RelicType.SHARED);
+        BaseMod.addRelic(new HarpOfBahamut(), RelicType.SHARED);
+        BaseMod.addRelic(new HarpOfBahamutCoda(), RelicType.SHARED);
+        BaseMod.addRelic(new StaffOfBahamut(), RelicType.SHARED);
+        BaseMod.addRelic(new StaffOfBahamutCoda(), RelicType.SHARED);
+        BaseMod.addRelic(new SwordOfBahamut(), RelicType.SHARED);
+        BaseMod.addRelic(new SwordOfBahamutCoda(), RelicType.SHARED);
+
+        // Rose Queen
+        BaseMod.addRelic(new CrystalRose(), RelicType.SHARED);
+        BaseMod.addRelic(new RoseShield(), RelicType.SHARED);
     }
 
     @Override
     public void receiveEditCards() {
-        new AutoAdd(modID) //Loads files from this mod
-                .packageFilter(BaseCard.class) //In the same package as this class
-                .setDefaultSeen(true) //And marks them as seen in the compendium
-                .cards(); //Adds the cards
+
+        // Bahamut Reward Cards
+        BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.DaggerOfBahamut());
+        BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.HarpOfBahamut());
+        BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.StaffOfBahamut());
+        BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.SwordOfBahamut());
+
+        // General Reward Cards
+
+            // Magna 2
+        BaseMod.addCard(new granbluebosses.cards.rewards.AlexielCall());
+        BaseMod.addCard(new granbluebosses.cards.rewards.GrimnirCall());
+        BaseMod.addCard(new granbluebosses.cards.rewards.EuropaCall());
+        BaseMod.addCard(new granbluebosses.cards.rewards.ShivaCall());
+
+            // Magna 1
+        BaseMod.addCard(new granbluebosses.cards.rewards.CelesteOmega());
+        BaseMod.addCard(new granbluebosses.cards.rewards.ColossusOmega());
+        BaseMod.addCard(new granbluebosses.cards.rewards.LeviathanOmega());
+        BaseMod.addCard(new granbluebosses.cards.rewards.LuminieraOmega());
+        BaseMod.addCard(new granbluebosses.cards.rewards.TiamatOmega());
+        BaseMod.addCard(new granbluebosses.cards.rewards.YggdrasilOmega());
+
+
     }
 }
