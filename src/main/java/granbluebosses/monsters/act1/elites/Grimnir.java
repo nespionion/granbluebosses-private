@@ -20,7 +20,7 @@ import com.megacrit.cardcrawl.vfx.combat.MindblastEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.rewards.GrimnirCall;
+import granbluebosses.cards.GrimnirCall;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.util.Sounds;

@@ -3,21 +3,13 @@ package granbluebosses;
 import actlikeit.dungeons.CustomDungeon;
 import basemod.AutoAdd;
 import basemod.BaseMod;
-import basemod.DevConsole;
-import basemod.devcommands.relic.RelicPool;
-import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import basemod.ModPanel;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.BaseCard;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.monsters.act1.bosses.GrandOrder;
-import granbluebosses.monsters.act1.bosses.ProtoBaha;
 import granbluebosses.relics.BaseRelic;
-import granbluebosses.relics.events.AzureFeather;
 import granbluebosses.util.GeneralUtils;
 import granbluebosses.util.KeywordInfo;
 import granbluebosses.util.Sounds;
@@ -43,8 +35,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-
-import static basemod.BaseMod.registerModBadge;
 
 @SpireInitializer
 public class GranblueBosses implements

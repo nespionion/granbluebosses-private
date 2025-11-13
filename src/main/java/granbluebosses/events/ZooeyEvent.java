@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import granbluebosses.GranblueBosses;
-import granbluebosses.relics.events.AzureFeather;
+import granbluebosses.relics.AzureFeather;
 
 public class ZooeyEvent extends PhasedEvent {
     public final static String EVENT_ID = GranblueBosses.makeID("ZooeyEvent");
