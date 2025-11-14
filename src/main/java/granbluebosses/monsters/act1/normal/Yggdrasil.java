@@ -139,18 +139,27 @@ public class Yggdrasil extends CustomMonster {
     }
 
     protected void prepareIntentA17() {
-        if (AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
-        } else {
-            addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+        switch (this.nextMove) {
+            case 0:
+                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+                break;
+            case 1:
+                if (AbstractDungeon.aiRng.randomBoolean()) {
+                    addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
+                } else {
+                    addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+                }
+                break;
         }
+
+
     }
 
     @Override
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
-            if (AbstractDungeon.aiRng.randomBoolean()) {
+            if (AbstractDungeon.ascensionLevel < 17) {
                 this.setMove(LUMINOX_GENESI, (byte)0, Intent.DEBUFF);
             } else {
                 this.setMove(AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false);

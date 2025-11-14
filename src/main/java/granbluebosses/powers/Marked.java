@@ -5,6 +5,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoom;
+import granbluebosses.GranblueBosses;
+import granbluebosses.monsters.act1.elites.Alexiel;
 
 import static granbluebosses.GranblueBosses.makeID;
 
@@ -17,5 +21,16 @@ public class Marked extends BasePower{
 
     public Marked(AbstractCreature owner) {
         super(POWER_ID, TYPE, TURN_BASED, owner, -1);
+    }
+
+    @Override
+    public void atStartOfTurn() {
+        super.atStartOfTurn();
+        if (AbstractDungeon.getCurrRoom() instanceof MonsterRoom){
+            Alexiel alex = (Alexiel) AbstractDungeon.getCurrRoom().monsters.getMonster(Alexiel.MONSTER_ID);
+            if (alex != null){
+                alex.prepareHelix();
+            }
+        }
     }
 }

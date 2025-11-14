@@ -133,7 +133,12 @@ public class Europa extends CustomMonster {
     protected void useFloralPrison(){
         addToBot(new AnimateSlowAttackAction(this));
 
-        addToBot(new MakeTempCardInDrawPileAction(new Dazed(), floralPrisonStacks, true, true, false));
+        if (AbstractDungeon.ascensionLevel < 18){
+            addToBot(new MakeTempCardInDiscardAction(new Dazed(), floralPrisonStacks));
+        } else {
+            addToBot(new MakeTempCardInDiscardAndDeckAction(new Dazed()));
+            addToBot(new MakeTempCardInDiscardAndDeckAction(new Dazed()));
+        }
     }
 
     protected void useManaBlast(){
@@ -169,6 +174,10 @@ public class Europa extends CustomMonster {
             addToBot(new SetMoveAction(this, TAURUS_BLIGHT, (byte) 2, Intent.ATTACK_BUFF, this.damage.get(TAURUS_BLIGHT_INDEX).output, this.taurusBlightHits, true));
             return;
         }
+        if (AbstractDungeon.ascensionLevel >= 18) {
+            this.prepareIntentA17();
+            return;
+        }
         switch (this.nextMove) {
             case 0:
                 addToBot(new SetMoveAction(this, MANA_BLAST, (byte) 1, Intent.ATTACK, this.damage.get(MANA_BLAST_INDEX).output, this.manaBlastHits, true));
@@ -178,6 +187,20 @@ public class Europa extends CustomMonster {
                 break;
             case 2:
                 addToBot(new SetMoveAction(this, FLORAL_PRISON, (byte) 0, Intent.DEBUFF));
+                break;
+        }
+    }
+
+    protected void prepareIntentA17() {
+        switch (this.nextMove) {
+            case 0:
+                addToBot(new SetMoveAction(this, MANA_BLAST, (byte) 1, Intent.ATTACK, this.damage.get(MANA_BLAST_INDEX).output, this.manaBlastHits, true));
+                break;
+            case 1:
+                addToBot(new SetMoveAction(this, FLORAL_PRISON, (byte) 0, Intent.DEBUFF));
+                break;
+            case 2:
+                addToBot(new SetMoveAction(this, MANA_BLAST, (byte) 1, Intent.ATTACK, this.damage.get(MANA_BLAST_INDEX).output, this.manaBlastHits, true));
                 break;
         }
     }

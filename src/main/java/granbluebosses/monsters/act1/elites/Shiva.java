@@ -152,7 +152,9 @@ public class Shiva extends CustomMonster {
         addToBot(new AnimateSlowAttackAction(this));
         if (this.hasPower(PathOfDestruction.POWER_ID)){
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(SRI_RUDRAM_EMPOWERED_INDEX), AbstractGameAction.AttackEffect.NONE));
-            addToBot(new RemoveSpecificPowerAction(this, this, PathOfDestruction.POWER_ID));
+            if (AbstractDungeon.ascensionLevel < 18) {
+                addToBot(new RemoveSpecificPowerAction(this, this, PathOfDestruction.POWER_ID));
+            }
         } else {
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(SRI_RUDRAM_INDEX), AbstractGameAction.AttackEffect.NONE));
         }
@@ -203,10 +205,18 @@ public class Shiva extends CustomMonster {
     protected void prepareIntentA17() {
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, this.damage.get(SRI_RUDRAM_INDEX).output, 1, false));
+                if (this.hasPower(PathOfDestruction.POWER_ID)){
+                    addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.damage.get(SRI_RUDRAM_EMPOWERED_INDEX).output), 1, false));
+                } else {
+                    addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, this.damage.get(SRI_RUDRAM_INDEX).output, 1, false));
+                }
                 break;
             case 1:
-                addToBot(new SetMoveAction(this, RUDRA, (byte) 0, Intent.BUFF));
+                if (this.hasPower(PathOfDestruction.POWER_ID)){
+                    addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.damage.get(SRI_RUDRAM_EMPOWERED_INDEX).output), 1, false));
+                } else {
+                    addToBot(new SetMoveAction(this, RUDRA, (byte) 0, Intent.BUFF));
+                }
                 break;
             case 2:
                 addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.damage.get(SRI_RUDRAM_EMPOWERED_INDEX).output), 1, false));

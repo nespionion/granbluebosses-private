@@ -104,10 +104,13 @@ public class Celeste extends CustomMonster {
     }
 
     protected void prepareIntent() {
-        if (AbstractDungeon.player.hasPower(RegenPower.POWER_ID)) {
-            addToBot(new SetMoveAction(this, BIZARRE_FOG, (byte)1, Intent.STRONG_DEBUFF));
-        } else {
-            addToBot(new SetMoveAction(this, TRANQUIL_FOG, (byte)0, Intent.ATTACK_DEBUFF, this.damage.get(0).output, 1, false));
+        switch (this.nextMove){
+            case 0:
+                addToBot(new SetMoveAction(this, BIZARRE_FOG, (byte)1, Intent.STRONG_DEBUFF));
+                break;
+            case 1:
+                addToBot(new SetMoveAction(this, TRANQUIL_FOG, (byte)0, Intent.ATTACK_DEBUFF, this.damage.get(0).output, 1, false));
+                break;
         }
     }
 

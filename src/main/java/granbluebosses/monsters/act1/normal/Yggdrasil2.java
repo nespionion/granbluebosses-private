@@ -193,17 +193,30 @@ public class Yggdrasil2 extends CustomMonster {
             case 2:
                 addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
                 break;
-            case 3:
+            default:
                 addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
                 break;
         }
     }
 
     protected void prepareIntentA17() {
-        if (AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
-        } else {
-            addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+        switch (this.nextMove) {
+            case 0:
+                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+                break;
+            case 1:
+                if (AbstractDungeon.aiRng.randomBoolean()) {
+                    addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte) 0, Intent.DEBUFF));
+                } else {
+                    addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+                }
+                break;
+            case 2:
+                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+                break;
+            default:
+                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
+                break;
         }
     }
 
@@ -215,7 +228,7 @@ public class Yggdrasil2 extends CustomMonster {
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
-            if (AbstractDungeon.aiRng.randomBoolean()) {
+            if (AbstractDungeon.ascensionLevel < 17) {
                 this.setMove(LUMINOX_GENESI, (byte)0, Intent.DEBUFF);
             } else {
                 this.setMove(AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false);

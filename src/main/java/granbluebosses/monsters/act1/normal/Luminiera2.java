@@ -91,7 +91,7 @@ public class Luminiera2 extends CustomMonster {
         super.usePreBattleAction();
 
         if (AbstractDungeon.ascensionLevel >= 17){
-            addToBot(new ApplyPowerAction(this, this, new DebuffOnHit(this, DebuffOnHit.AvailableDebuffs.NEG_DEXTERITY, 1)));
+            this.useAegisMerge();
         }
 
         if (ConfigMenu.enableDMCAMusic){
@@ -135,6 +135,10 @@ public class Luminiera2 extends CustomMonster {
     }
 
     protected void prepareIntent() {
+        if (AbstractDungeon.ascensionLevel >= 17){
+            this.prepareIntentA17();
+            return;
+        }
         if (trigger && this.currentBlock < 1) {
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
@@ -145,11 +149,27 @@ public class Luminiera2 extends CustomMonster {
         }
     }
 
+    protected void prepareIntentA17() {
+        if (this.currentBlock > 0) {
+            addToBot(new SetMoveAction(this, ILIAD_MERGE, (byte)1, Intent.BUFF));
+        } else {
+            if (trigger){
+                this.trigger = false;
+                addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
+            }
+            addToBot(new SetMoveAction(this, BLADE_OF_LIGHT, (byte)2, Intent.ATTACK, this.damage.get(BLADE_OF_LIGHT_INDEX).output, this.bladeOfLightHits, true));
+        }
+    }
+
     @Override
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
-            this.setMove(AEGIS_MERGE, (byte)0, Intent.DEFEND);
+            if (AbstractDungeon.ascensionLevel < 17){
+                this.setMove(AEGIS_MERGE, (byte)0, Intent.DEFEND);
+            } else {
+                addToBot(new SetMoveAction(this, ILIAD_MERGE, (byte)1, Intent.BUFF));
+            }
         }
     }
 

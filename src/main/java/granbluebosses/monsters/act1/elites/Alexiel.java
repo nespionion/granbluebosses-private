@@ -117,37 +117,38 @@ public class Alexiel extends CustomMonster {
         } else {
             mirrorBladePower = new MirrorBlade2(this);
         }
+        if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
+            this.state.setAnimation(0, "mirror", false);
+            this.state.addAnimation(0, "idle_mirror", true, 0.0f);
+        }
+
         addToBot(new ApplyPowerAction(AbstractDungeon.player, this, mirrorBladePower));
     }
 
     protected void useUncrossableRealm(){
         this.gainMirrorBlde();
-        if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
-            this.state.setAnimation(0, "mirror", false);
-            this.state.addAnimation(0, "idle_mirror", true, 0.0f);
-        }
 
         addToBot(new GainBlockAction(this, this.uncrossableRealmBlock));
     }
 
     protected void useMirrorBladeEruption(){
 
-        this.state.setAnimation(0, "mirror_eruption", false);
-
         if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
             this.gainMirrorBlde();
         }
-        this.state.addAnimation(0, "idle_mirror", true, 0.0f);
 
         addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, 2, true), 2));
+
         addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new Marked(AbstractDungeon.player)));
+
     }
 
     protected void useMirrorBladeHelix(){
 
-
         addToBot(new ShoutAction(this, HELIX_DIALOG));
         addToBot(new SFXAction(Sounds.ALEXIEL_HELIX_DIALOG));
+
+        this.state.setAnimation(0, "mirror_eruption", true);
 
         for (int i = 0; i < this.mirrorBladeHelixHits; i++){
             addToBot(new AnimateFastAttackAction(this));
@@ -159,18 +160,22 @@ public class Alexiel extends CustomMonster {
             this.addToBot(new VFXAction(this, new CleaveEffect(true), 0.1F));
 
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(0), AbstractGameAction.AttackEffect.NONE));
+
+        }
+
+        if (AbstractDungeon.ascensionLevel < 18){
+            addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, this, Marked.POWER_ID));
+        }
+
+        if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
+            this.state.setAnimation(0, "idle", true);
+        } else {
+            this.state.setAnimation(0, "idle_mirror", true);
         }
     }
 
 
     protected void prepareIntent() {
-        if (AbstractDungeon.player.hasPower(Marked.POWER_ID)){
-            addToBot(new TextAboveCreatureAction(this, "DANGER!"));
-            this.setMove(MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.damage.get(0).output, this.mirrorBladeHelixHits, true);
-            this.createIntent();
-            addToBot(new SetMoveAction(this, MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.damage.get(0).output, this.mirrorBladeHelixHits, true));
-            return;
-        }
         switch (this.nextMove) {
             case 0:
                 addToBot(new SetMoveAction(this, MIRROR_BLADE_ERUPTION, (byte) 1, Intent.DEBUFF));
@@ -182,6 +187,13 @@ public class Alexiel extends CustomMonster {
                 addToBot(new SetMoveAction(this, UNCROSSABLE_REALM, (byte) 0, Intent.DEFEND_BUFF));
                 break;
         }
+    }
+
+    public void prepareHelix(){
+        addToBot(new TextAboveCreatureAction(this, "DANGER!"));
+        this.setMove(MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.damage.get(0).output, this.mirrorBladeHelixHits, true);
+        this.createIntent();
+        addToBot(new SetMoveAction(this, MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.damage.get(0).output, this.mirrorBladeHelixHits, true));
     }
 
     @Override

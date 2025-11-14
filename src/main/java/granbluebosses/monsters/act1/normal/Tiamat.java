@@ -103,18 +103,30 @@ public class Tiamat extends CustomMonster {
             this.prepareIntentA17();
             return;
         }
-        if (AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
-        } else {
-            addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
+        switch (this.nextMove){
+            case 0:
+                addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
+                break;
+            case 1:
+                addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
+                break;
         }
+
+
     }
 
     protected  void prepareIntentA17(){
-        if (AbstractDungeon.aiRng.randomBoolean() || AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
-        } else {
-            addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
+        switch (this.nextMove){
+            case 0:
+                if (AbstractDungeon.aiRng.randomBoolean()) {
+                    addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
+                } else {
+                    addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
+                }
+                break;
+            case 1:
+                addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
+                break;
         }
     }
 
@@ -122,7 +134,7 @@ public class Tiamat extends CustomMonster {
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
-            if (AbstractDungeon.aiRng.randomBoolean()) {
+            if (AbstractDungeon.ascensionLevel >= 17) {
                 this.setMove(WIND_TORRENT, (byte) 0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output);
             } else {
                 this.setMove(CRIPPLING_STORM, (byte) 1, Intent.DEBUFF);

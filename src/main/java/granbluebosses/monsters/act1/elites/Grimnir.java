@@ -151,8 +151,17 @@ public class Grimnir extends CustomMonster {
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(DIVINE_WIND_INDEX), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         }
 
-        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new StrengthPower(AbstractDungeon.player, -1)));
-        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DexterityPower(AbstractDungeon.player, -1)));
+        if (AbstractDungeon.ascensionLevel >= 18) {
+            addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new StrengthPower(AbstractDungeon.player, -1)));
+            addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DexterityPower(AbstractDungeon.player, -1)));
+        } else {
+            if (!AbstractDungeon.aiRng.randomBoolean()){
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new StrengthPower(AbstractDungeon.player, -1)));
+            } else {
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DexterityPower(AbstractDungeon.player, -1)));
+            }
+        }
+
     }
 
     protected void useHolyRayOfPurification(){
@@ -197,6 +206,10 @@ public class Grimnir extends CustomMonster {
             addToBot(new SetMoveAction(this, HOLY_RAY_OF_PURIFICATION, (byte) 2, Intent.ATTACK_BUFF, this.holyRayOfPurificationDmg, 1, false));
             return;
         }
+        if (AbstractDungeon.ascensionLevel >= 18) {
+            this.prepareIntentA17();
+            return;
+        }
         switch (this.nextMove) {
             case 0:
                 addToBot(new SetMoveAction(this, DIVINE_WIND, (byte) 1, Intent.ATTACK, this.divineWindDmg, this.divineWindHits, true));
@@ -206,6 +219,23 @@ public class Grimnir extends CustomMonster {
                 break;
             case 2:
                 addToBot(new SetMoveAction(this, RAMBLING, (byte) 0, Intent.UNKNOWN));
+                break;
+            case 3:
+                addToBot(new SetMoveAction(this, RUN_AWAY, (byte) 3, Intent.ESCAPE));
+                break;
+        }
+    }
+
+    protected void prepareIntentA17() {
+        switch (this.nextMove) {
+            case 0:
+                addToBot(new SetMoveAction(this, DIVINE_WIND, (byte) 1, Intent.ATTACK, this.divineWindDmg, this.divineWindHits, true));
+                break;
+            case 1:
+                addToBot(new SetMoveAction(this, RAMBLING, (byte) 0, Intent.UNKNOWN));
+                break;
+            case 2:
+                addToBot(new SetMoveAction(this, DIVINE_WIND, (byte) 1, Intent.ATTACK, this.divineWindDmg, this.divineWindHits, true));
                 break;
             case 3:
                 addToBot(new SetMoveAction(this, RUN_AWAY, (byte) 3, Intent.ESCAPE));

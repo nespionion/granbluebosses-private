@@ -163,11 +163,23 @@ public class Colossus2 extends CustomMonster {
     }
 
     protected void prepareIntentA17() {
-        if (AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, FORCE_FIELD, (byte) 1, Intent.DEFEND));
-        } else {
-            addToBot(new SetMoveAction(this, IGNITE, (byte) 0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
+        switch (this.nextMove) {
+            case 0:
+                if (AbstractDungeon.aiRng.randomBoolean()) {
+                    addToBot(new SetMoveAction(this, FORCE_FIELD, (byte) 1, Intent.DEFEND));
+                } else {
+                    addToBot(new SetMoveAction(this, IGNITE, (byte) 0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
+                }
+                break;
+            case 1:
+                addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
+                break;
+            case 2:
+                addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
+                break;
         }
+
+
     }
 
     @Override
