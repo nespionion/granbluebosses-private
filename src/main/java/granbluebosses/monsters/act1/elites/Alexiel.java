@@ -78,7 +78,7 @@ public class Alexiel extends CustomMonster {
         }
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
-        this.state.setAnimation(0, "idle", true);
+        this.state.setAnimation(0, "idle1", true);
 
         this.damage.add(new DamageInfo(this, this.mirrorBladeHelixDmg, DamageInfo.DamageType.NORMAL));
 
@@ -168,7 +168,7 @@ public class Alexiel extends CustomMonster {
         }
 
         if (!AbstractDungeon.player.hasPower(MirrorBlade2.POWER_ID) && !AbstractDungeon.player.hasPower(MirrorBlade5.POWER_ID)){
-            this.state.setAnimation(0, "idle", true);
+            this.state.setAnimation(0, "idle1", true);
         } else {
             this.state.setAnimation(0, "idle_mirror", true);
         }

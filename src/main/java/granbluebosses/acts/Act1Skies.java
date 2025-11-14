@@ -4,12 +4,14 @@ import actlikeit.dungeons.CustomDungeon;
 import basemod.BaseMod;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.dungeons.Exordium;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.MonsterInfo;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import com.megacrit.cardcrawl.scenes.AbstractScene;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import granbluebosses.GranblueBosses;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.events.*;
@@ -23,6 +25,7 @@ import granbluebosses.monsters.act1.normal.*;
 import granbluebosses.util.Sounds;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Act1Skies extends CustomDungeon {
     public static final String ID = GranblueBosses.makeID("Act1Skies"); //From the main mod file for best practices
@@ -41,8 +44,8 @@ public class Act1Skies extends CustomDungeon {
         GranblueBosses.logger.info("Generated Strong Encounters");
         this.defineEliteMonster();
         GranblueBosses.logger.info("Generated Elite Encounters");
-        this.defineBossEnemies();
-        GranblueBosses.logger.info("Generated Boss Encounters");
+//        this.defineBossEnemies();
+//        GranblueBosses.logger.info("Generated Boss Encounters");
 
 //        this.generateWeakEnemies(3);
 //        this.generateStrongEnemies(6);
@@ -83,16 +86,6 @@ public class Act1Skies extends CustomDungeon {
     }
 
     protected void defineWeakMonster(){
-//        if (AbstractDungeon.mapRng.randomBoolean()){
-//            addMonster(GranblueBosses.makeID("Colossus"), () -> new Colossus());
-//            addMonster(GranblueBosses.makeID("Tiamat"), () -> new Tiamat());
-//            addMonster(GranblueBosses.makeID("Luminiera"), () -> new Luminiera());
-//        } else {
-//            addMonster(GranblueBosses.makeID("Celeste"), () -> new Celeste());
-//            addMonster(GranblueBosses.makeID("Leviathan"), () -> new Leviathan());
-//            addMonster(GranblueBosses.makeID("Yggdrasil"), () -> new Yggdrasil());
-//        }
-
             addMonster(GranblueBosses.makeID("Colossus"), () -> new Colossus());
             addMonster(GranblueBosses.makeID("Tiamat"), () -> new Tiamat());
             addMonster(GranblueBosses.makeID("Luminiera"), () -> new Luminiera());
@@ -128,12 +121,16 @@ public class Act1Skies extends CustomDungeon {
         super.makeMap();
     }
 
-    public void defineBossEnemies(){
-        if (AbstractDungeon.mapRng.randomBoolean()){
-            addBoss(GranblueBosses.makeID("ProtoBahamut"), "Proto Bahamut", () -> new ProtoBaha(), ProtoBaha.MAP_ICON, ProtoBaha.OUTLINE);
-        } else {
-            addBoss(GranblueBosses.makeID("GrandOrder"), "Grand Order", () -> new GrandOrder(), GrandOrder.MAP_ICON, GrandOrder.OUTLINE);
-        }
+    @Override
+    protected void initializeBoss() {
+        this.addBoss(GranblueBosses.makeID("GrandOrder"), "Grand Order", () -> new GrandOrder(), GrandOrder.MAP_ICON, GrandOrder.OUTLINE);
+        this.addBoss(GranblueBosses.makeID("ProtoBaha"), "Proto Bahamut", () -> new ProtoBaha(), ProtoBaha.MAP_ICON, ProtoBaha.OUTLINE);
+
+        super.initializeBoss();
+
+        bossList.add(GranblueBosses.makeID("GrandOrder"));
+        bossList.add(GranblueBosses.makeID("ProtoBaha"));
+        Collections.shuffle(bossList, new java.util.Random(monsterRng.randomLong()));
     }
 
     protected void generateWeakEnemies(int count) {

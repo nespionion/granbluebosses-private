@@ -13,6 +13,8 @@ import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.BaseCard;
 import granbluebosses.config.ConfigMenu;
+import granbluebosses.monsters.act1.bosses.GrandOrder;
+import granbluebosses.monsters.act1.bosses.ProtoBaha;
 import granbluebosses.relics.BaseRelic;
 import granbluebosses.relics.events.AzureFeather;
 import granbluebosses.relics.events.BlueCrystal;
@@ -82,12 +84,11 @@ public class GranblueBosses implements
     // TODO IMPORTANT :
     /*
 
-    1. Test laser beam animations for PBHL and Grimnir
-    2. Add a 1-frame attack animations for each enemy (Shiva Missing)
+    2. Test attack animations for each elite & boss
     4. Edit the Leviathan texture so the player does not look like they are in the water
     5. Test the event adding after omega fights
     6. Test ruins event rewards amount
-    7. Fix triggers to match slime boss
+    7. Test new triggers and enemy AI
 
     * */
 
@@ -98,7 +99,9 @@ public class GranblueBosses implements
         //Set up the mod information displayed in the in-game mods menu.
         //The information used is taken from your pom.xml file.
 
-        CustomDungeon.addAct(1, new Act1Skies());
+        Act1Skies act  = new Act1Skies();
+
+        CustomDungeon.addAct(1, act);
 
         //If you want to set up a config panel, that will be done here.
         //You can find information about this on the BaseMod wiki page "Mod Config and Panel".
