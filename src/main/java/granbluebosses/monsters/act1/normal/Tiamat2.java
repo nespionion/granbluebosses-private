@@ -153,7 +153,12 @@ public class Tiamat2 extends CustomMonster {
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
-            addToBot(new SetMoveAction(this, TERROR_ABSOLUTE, (byte)2, Intent.ATTACK_DEBUFF, terrorAbsoluteDmg));
+
+            this.setMove(TERROR_ABSOLUTE, (byte)2, Intent.ATTACK_DEBUFF, this.damage.get(TERROR_ABSOLUTE_INDEX).output);
+
+            this.createIntent();
+
+            addToBot(new SetMoveAction(this, TERROR_ABSOLUTE, (byte)2, Intent.ATTACK_DEBUFF, this.damage.get(TERROR_ABSOLUTE_INDEX).output));
             return;
         }
         if (AbstractDungeon.ascensionLevel >= 17){
@@ -165,14 +170,14 @@ public class Tiamat2 extends CustomMonster {
                 addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
                 break;
             case 1:
-                addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, windTorrentDmg));
+                addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
                 break;
         }
     }
 
     protected  void prepareIntentA17(){
         if (AbstractDungeon.aiRng.randomBoolean()){
-            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, windTorrentDmg));
+            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
         } else {
             addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
         }
@@ -183,7 +188,7 @@ public class Tiamat2 extends CustomMonster {
         if (this.firstTurn){
             this.firstTurn = false;
             if (AbstractDungeon.aiRng.randomBoolean()){
-                this.setMove(WIND_TORRENT, (byte)0, Intent.ATTACK, windTorrentDmg);
+                this.setMove(WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output);
             } else {
                 this.setMove(CRIPPLING_STORM, (byte)1, Intent.DEBUFF);
             }

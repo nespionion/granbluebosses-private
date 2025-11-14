@@ -129,8 +129,11 @@ public class Act1Skies extends CustomDungeon {
     }
 
     public void defineBossEnemies(){
-        addBoss(GranblueBosses.makeID("ProtoBahamut"), "Proto Bahamut", () -> new ProtoBaha(), ProtoBaha.MAP_ICON, ProtoBaha.OUTLINE);
-        addBoss(GranblueBosses.makeID("GrandOrder"), "Grand Order", () -> new GrandOrder(), GrandOrder.MAP_ICON, GrandOrder.OUTLINE);
+        if (AbstractDungeon.mapRng.randomBoolean()){
+            addBoss(GranblueBosses.makeID("ProtoBahamut"), "Proto Bahamut", () -> new ProtoBaha(), ProtoBaha.MAP_ICON, ProtoBaha.OUTLINE);
+        } else {
+            addBoss(GranblueBosses.makeID("GrandOrder"), "Grand Order", () -> new GrandOrder(), GrandOrder.MAP_ICON, GrandOrder.OUTLINE);
+        }
     }
 
     protected void generateWeakEnemies(int count) {

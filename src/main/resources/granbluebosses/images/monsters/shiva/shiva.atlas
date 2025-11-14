@@ -1,20 +1,76 @@
 
 shiva.png
-size: 1024,1024
+size: 1024,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Summon_b_2040185000
   rotate: false
-  xy: 1, 1
+  xy: 1, 801
   size: 640, 628
   orig: 640, 628
   offset: 0, 0
   index: -1
 spriteSpear
   rotate: false
-  xy: 643, 1
+  xy: 643, 801
   size: 293, 727
   orig: 293, 727
+  offset: 0, 0
+  index: -1
+sprite_shield4
+  rotate: false
+  xy: 910, 1
+  size: 110, 159
+  orig: 110, 159
+  offset: 0, 0
+  index: -1
+sprite_shield3
+  rotate: false
+  xy: 228, 1431
+  size: 218, 222
+  orig: 218, 222
+  offset: 0, 0
+  index: -1
+sprite_shield2
+  rotate: false
+  xy: 448, 1431
+  size: 157, 146
+  orig: 157, 146
+  offset: 0, 0
+  index: -1
+sprite_shield1
+  rotate: false
+  xy: 910, 162
+  size: 88, 81
+  orig: 88, 81
+  offset: 0, 0
+  index: -1
+sprite_shield0
+  rotate: false
+  xy: 910, 333
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+Npc_zoom_3040196000_02
+  rotate: false
+  xy: 1, 1
+  size: 907, 798
+  orig: 960, 800
+  offset: 36, 1
+  index: -1
+spriteEye
+  rotate: false
+  xy: 910, 245
+  size: 62, 86
+  orig: 62, 86
+  offset: 0, 0
+  index: -1
+sprite_laser
+  rotate: false
+  xy: 1, 1431
+  size: 225, 294
+  orig: 225, 294
   offset: 0, 0
   index: -1

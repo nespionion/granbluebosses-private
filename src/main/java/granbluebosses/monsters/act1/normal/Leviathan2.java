@@ -157,7 +157,7 @@ public class Leviathan2 extends CustomMonster {
         }
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.azureBladeDmg, this.azureBladeHits, true));
+                addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.damage.get(AZURE_BLADE_INDEX).output, this.azureBladeHits, true));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, CASCADE, (byte)0, Intent.DEBUFF));
@@ -172,7 +172,7 @@ public class Leviathan2 extends CustomMonster {
         if (AbstractDungeon.aiRng.randomBoolean()){
             addToBot(new SetMoveAction(this, CASCADE, (byte)0, Intent.DEBUFF));
         } else {
-            addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.azureBladeDmg, this.azureBladeHits, true));
+            addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.damage.get(AZURE_BLADE_INDEX).output, this.azureBladeHits, true));
         }
     }
 
@@ -180,8 +180,11 @@ public class Leviathan2 extends CustomMonster {
         if (this.hasPower(EbbTidePower.POWER_ID)) {
             this.updatePowers();
 
-            addToBot(new SetMoveAction(this, PERILOUS_TIDEFALL, (byte)2, Intent.ATTACK, this.perilousTidefallDmg, this.perilousTidefallHits, true));
+            this.setMove(PERILOUS_TIDEFALL, (byte)2, Intent.ATTACK, this.damage.get(PERILOUS_TIDEFALL_INDEX).output, this.perilousTidefallHits, true);
             this.createIntent();
+
+            addToBot(new SetMoveAction(this, PERILOUS_TIDEFALL, (byte)2, Intent.ATTACK, this.damage.get(PERILOUS_TIDEFALL_INDEX).output, this.perilousTidefallHits, true));
+
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
 
         }
@@ -194,7 +197,7 @@ public class Leviathan2 extends CustomMonster {
             if (AbstractDungeon.aiRng.randomBoolean()){
                 this.setMove(CASCADE, (byte)0, Intent.DEBUFF);
             } else {
-                this.setMove(AZURE_BLADE, (byte)1, Intent.ATTACK, this.azureBladeDmg, this.azureBladeHits, true);
+                this.setMove(AZURE_BLADE, (byte)1, Intent.ATTACK, this.damage.get(AZURE_BLADE_INDEX).output, this.azureBladeHits, true);
             }
         }
     }

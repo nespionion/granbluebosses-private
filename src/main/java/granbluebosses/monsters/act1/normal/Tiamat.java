@@ -104,7 +104,7 @@ public class Tiamat extends CustomMonster {
             return;
         }
         if (AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, windTorrentDmg));
+            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
         } else {
             addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
         }
@@ -112,7 +112,7 @@ public class Tiamat extends CustomMonster {
 
     protected  void prepareIntentA17(){
         if (AbstractDungeon.aiRng.randomBoolean() || AbstractDungeon.aiRng.randomBoolean()) {
-            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, windTorrentDmg));
+            addToBot(new SetMoveAction(this, WIND_TORRENT, (byte)0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output));
         } else {
             addToBot(new SetMoveAction(this, CRIPPLING_STORM, (byte)1, Intent.DEBUFF));
         }
@@ -123,7 +123,7 @@ public class Tiamat extends CustomMonster {
         if (this.firstTurn) {
             this.firstTurn = false;
             if (AbstractDungeon.aiRng.randomBoolean()) {
-                this.setMove(WIND_TORRENT, (byte) 0, Intent.ATTACK, windTorrentDmg);
+                this.setMove(WIND_TORRENT, (byte) 0, Intent.ATTACK, this.damage.get(WIND_TORRENT_INDEX).output);
             } else {
                 this.setMove(CRIPPLING_STORM, (byte) 1, Intent.DEBUFF);
             }

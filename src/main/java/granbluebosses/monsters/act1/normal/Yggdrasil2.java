@@ -115,9 +115,9 @@ public class Yggdrasil2 extends CustomMonster {
                 this.useAxisMundi();
                 break;
             case 2:
-                this.useSongOfGraceHeal();
-            case 3:
                 this.useSongOfGraceHurt();
+                this.useSongOfGraceHeal();
+
         }
         this.prepareIntent();
     }
@@ -163,15 +163,20 @@ public class Yggdrasil2 extends CustomMonster {
     protected void useSongOfGraceHeal(){
         for (int i = 0; i < songOfGraceHits; i++){
             addToBot(new VFXAction(this, new ShockWaveEffect(this.hb.cX, this.hb.cY, Settings.GREEN_TEXT_COLOR, ShockWaveEffect.ShockWaveType.NORMAL), 0.3F));
-            addToBot(new GainBlockAction(AbstractDungeon.player, this.damage.get(SONG_OF_GRACE_INDEX).output));
+            addToBot(new HealAction(AbstractDungeon.player, this, this.damage.get(SONG_OF_GRACE_INDEX).output));
         }
     }
 
     protected void prepareIntent() {
         if (this.currentHealth * this.OMEN_MULT <= this.maxHealth && trigger){
-            this.prepareSongOfGrace();
             this.trigger = false;
+
+            this.setMove(SONG_OF_GRACE, (byte)2, Intent.ATTACK_BUFF, this.damage.get(SONG_OF_GRACE_INDEX).output, this.songOfGraceHits, true);
+            this.createIntent();
+            addToBot(new SetMoveAction(this, SONG_OF_GRACE, (byte)2, Intent.ATTACK_BUFF, this.damage.get(SONG_OF_GRACE_INDEX).output, this.songOfGraceHits, true));
+
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
+            addToBot(new TextAboveCreatureAction(this, "DANGER!"));
             return;
         }
         if (AbstractDungeon.ascensionLevel >= 17) {
@@ -180,7 +185,7 @@ public class Yggdrasil2 extends CustomMonster {
         }
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false));
+                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
@@ -198,29 +203,12 @@ public class Yggdrasil2 extends CustomMonster {
         if (AbstractDungeon.aiRng.randomBoolean()) {
             addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
         } else {
-            addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false));
+            addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
         }
     }
 
     protected void prepareSongOfGrace(){
-        AbstractPlayer p = AbstractDungeon.player;
-        int buffCount = 0;
-        int debuffCount = 0;
 
-        for (AbstractPower pow : p.powers){
-            if (pow.type == AbstractPower.PowerType.DEBUFF){
-                debuffCount++;
-            } else {
-                buffCount++;
-            }
-        }
-
-        if (buffCount > debuffCount){
-            addToBot(new SetMoveAction(this, SONG_OF_GRACE, (byte)2, Intent.DEFEND));
-        } else {
-            this.songOfGraceHits = debuffCount - buffCount;
-            addToBot(new SetMoveAction(this, SONG_OF_GRACE, (byte)3, Intent.ATTACK, this.songOfGraceDmg, this.songOfGraceHits, true));
-        }
     }
 
     @Override
@@ -230,7 +218,7 @@ public class Yggdrasil2 extends CustomMonster {
             if (AbstractDungeon.aiRng.randomBoolean()) {
                 this.setMove(LUMINOX_GENESI, (byte)0, Intent.DEBUFF);
             } else {
-                this.setMove(AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false);
+                this.setMove(AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false);
             }
         }
     }

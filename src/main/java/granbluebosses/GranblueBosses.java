@@ -87,6 +87,7 @@ public class GranblueBosses implements
     4. Edit the Leviathan texture so the player does not look like they are in the water
     5. Test the event adding after omega fights
     6. Test ruins event rewards amount
+    7. Fix triggers to match slime boss
 
     * */
 
@@ -359,7 +360,7 @@ public class GranblueBosses implements
     @Override
     public void receiveEditCards() {
 
-        // Bahamut Reward Cards
+            // Bahamut Reward Cards
         BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.DaggerOfBahamut());
         BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.HarpOfBahamut());
         BaseMod.addCard(new granbluebosses.cards.protobaha.optionCards.StaffOfBahamut());

@@ -139,7 +139,10 @@ public class Colossus2 extends CustomMonster {
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
-            addToBot(new SetMoveAction(this, DIMENSIONAL_CLEAVER, (byte)2, Intent.ATTACK, this.dimensionalCleaveDmg, 1, false));
+
+            this.setMove(DIMENSIONAL_CLEAVER, (byte)2, Intent.ATTACK, this.damage.get(DIMENSIONAL_CLEAVER_INDEX).output, 1, false);
+            this.createIntent();
+            addToBot(new SetMoveAction(this, DIMENSIONAL_CLEAVER, (byte)2, Intent.ATTACK, this.damage.get(DIMENSIONAL_CLEAVER_INDEX).output, 1, false));
             return;
         }
         if (AbstractDungeon.ascensionLevel >= 17) {
@@ -151,7 +154,7 @@ public class Colossus2 extends CustomMonster {
                 addToBot(new SetMoveAction(this, FORCE_FIELD, (byte)1, Intent.DEFEND));
                 break;
             case 1:
-                addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.igniteDmg, 1, false));
+                addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
                 break;
             case 2:
                 addToBot(new SetMoveAction(this, FORCE_FIELD, (byte)1, Intent.DEFEND));
@@ -163,7 +166,7 @@ public class Colossus2 extends CustomMonster {
         if (AbstractDungeon.aiRng.randomBoolean()) {
             addToBot(new SetMoveAction(this, FORCE_FIELD, (byte) 1, Intent.DEFEND));
         } else {
-            addToBot(new SetMoveAction(this, IGNITE, (byte) 0, Intent.ATTACK, this.igniteDmg, 1, false));
+            addToBot(new SetMoveAction(this, IGNITE, (byte) 0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
         }
     }
 

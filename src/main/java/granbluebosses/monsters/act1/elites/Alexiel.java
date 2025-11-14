@@ -166,7 +166,9 @@ public class Alexiel extends CustomMonster {
     protected void prepareIntent() {
         if (AbstractDungeon.player.hasPower(Marked.POWER_ID)){
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
-            addToBot(new SetMoveAction(this, MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.mirrorBladeHelixDmg, this.mirrorBladeHelixHits, true));
+            this.setMove(MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.damage.get(0).output, this.mirrorBladeHelixHits, true);
+            this.createIntent();
+            addToBot(new SetMoveAction(this, MIRROR_BLADE_HELIX, (byte) 2, Intent.ATTACK, this.damage.get(0).output, this.mirrorBladeHelixHits, true));
             return;
         }
         switch (this.nextMove) {

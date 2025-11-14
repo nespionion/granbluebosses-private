@@ -147,7 +147,7 @@ public class Celeste2 extends CustomMonster {
         if (AbstractDungeon.player.hasPower(RegenPower.POWER_ID)) {
             addToBot(new SetMoveAction(this, BIZARRE_FOG, (byte)1, Intent.STRONG_DEBUFF));
         } else {
-            addToBot(new SetMoveAction(this, TRANQUIL_FOG, (byte)0, Intent.ATTACK_DEBUFF, this.tranquilFogDmg, 1, false));
+            addToBot(new SetMoveAction(this, TRANQUIL_FOG, (byte)0, Intent.ATTACK_DEBUFF, this.damage.get(TRANQUIL_FOG_INDEX).output, 1, false));
         }
     }
 
@@ -162,9 +162,15 @@ public class Celeste2 extends CustomMonster {
                 nullVoidMult ++;
             }
             this.nullVoidDmg = AbstractDungeon.player.getPower(PoisonPower.POWER_ID).amount * nullVoidMult;
+            this.damage.get(NULL_VOID_INDEX).base = this.nullVoidDmg;
+            this.damage.get(NULL_VOID_INDEX).applyPowers(this, AbstractDungeon.player);
         }
 
-        addToBot(new SetMoveAction(this, NULL_VOID, (byte)2, Intent.ATTACK, this.nullVoidDmg, 1, false));
+        this.setMove(NULL_VOID, (byte)2, Intent.ATTACK, this.damage.get(NULL_VOID_INDEX).output, 1, false);
+
+        this.createIntent();
+
+        addToBot(new SetMoveAction(this, NULL_VOID, (byte)2, Intent.ATTACK, this.damage.get(NULL_VOID_INDEX).output, 1, false));
     }
 
     @Override
@@ -192,7 +198,7 @@ public class Celeste2 extends CustomMonster {
     protected void getMove(int i) {
         if (this.firstTurn) {
             this.firstTurn = false;
-            this.setMove(TRANQUIL_FOG, (byte)0, Intent.ATTACK_DEBUFF, this.tranquilFogDmg, 1, false);
+            this.setMove(TRANQUIL_FOG, (byte)0, Intent.ATTACK_DEBUFF, this.damage.get(TRANQUIL_FOG_INDEX).output, 1, false);
         }
     }
 

@@ -164,13 +164,14 @@ public class Europa extends CustomMonster {
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
-
-            addToBot(new SetMoveAction(this, TAURUS_BLIGHT, (byte) 2, Intent.ATTACK_BUFF, this.taurusBlightDmg, this.taurusBlightHits, true));
+            this.setMove(TAURUS_BLIGHT, (byte) 2, Intent.ATTACK_BUFF, this.damage.get(TAURUS_BLIGHT_INDEX).output, this.taurusBlightHits, true);
+            this.createIntent();
+            addToBot(new SetMoveAction(this, TAURUS_BLIGHT, (byte) 2, Intent.ATTACK_BUFF, this.damage.get(TAURUS_BLIGHT_INDEX).output, this.taurusBlightHits, true));
             return;
         }
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, MANA_BLAST, (byte) 1, Intent.ATTACK, this.manaBlastDmg, this.manaBlastHits, true));
+                addToBot(new SetMoveAction(this, MANA_BLAST, (byte) 1, Intent.ATTACK, this.damage.get(MANA_BLAST_INDEX).output, this.manaBlastHits, true));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, FLORAL_PRISON, (byte) 0, Intent.DEBUFF));

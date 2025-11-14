@@ -141,7 +141,7 @@ public class Luminiera2 extends CustomMonster {
 
             addToBot(new SetMoveAction(this, ILIAD_MERGE, (byte)1, Intent.BUFF));
         } else {
-            addToBot(new SetMoveAction(this, BLADE_OF_LIGHT, (byte)2, Intent.ATTACK, this.bladeOfLightDmg, this.bladeOfLightHits, true));
+            addToBot(new SetMoveAction(this, BLADE_OF_LIGHT, (byte)2, Intent.ATTACK, this.damage.get(BLADE_OF_LIGHT_INDEX).output, this.bladeOfLightHits, true));
         }
     }
 

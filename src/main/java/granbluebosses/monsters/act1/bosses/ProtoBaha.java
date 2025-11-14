@@ -272,19 +272,19 @@ public class ProtoBaha extends CustomMonster {
                 addToBot(new SetMoveAction(this, ARCADIA, (byte)2, Intent.STRONG_DEBUFF));
                 break;
             case 2:
-                addToBot(new SetMoveAction(this, REGINLEIV, (byte)3, Intent.ATTACK, reginleivDmg, reginleivHits + (2 * this.inOverdrive()), true));
+                addToBot(new SetMoveAction(this, REGINLEIV, (byte)3, Intent.ATTACK, this.damage.get(REGINLEIV_INDEX).output, reginleivHits + (2 * this.inOverdrive()), true));
                 break;
             case 3:
                 addToBot(new SetMoveAction(this, ABDAK_FORCE, (byte)4, Intent.BUFF));
                 break;
             case 4:
-                addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, reginleivDmg, reginleivHits + (2 * this.inOverdrive()), true));
+                addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, this.damage.get(REGINLEIV_INDEX).output, reginleivHits + (2 * this.inOverdrive()), true));
                 break;
             case 5:
-                addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, reginleivDmg, reginleivHits + (2 * this.inOverdrive()), true));
+                addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, this.damage.get(REGINLEIV_INDEX).output, reginleivHits + (2 * this.inOverdrive()), true));
                 break;
             case 6:
-                addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, reginleivDmg, reginleivHits + (2 * this.inOverdrive()), true));
+                addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, this.damage.get(REGINLEIV_INDEX).output, reginleivHits + (2 * this.inOverdrive()), true));
                 break;
             default:
                 addToBot(new SetMoveAction(this, REGINLEIV, (byte)1, Intent.ATTACK, reginleivDmg, reginleivHits + (2 * this.inOverdrive()), true));
@@ -312,13 +312,13 @@ public class ProtoBaha extends CustomMonster {
                 addToBot(new SetMoveAction(this, ARCADIA_KHLORON, (byte)2, Intent.STRONG_DEBUFF));
                 break;
             case 2:
-                addToBot(new SetMoveAction(this, REGINLEIV_RECIDIVE, (byte)3, Intent.ATTACK, reginleivRecidiveDmg + (2 * this.inOverdrive()), reginleivRecidiveDmg, true));
+                addToBot(new SetMoveAction(this, REGINLEIV_RECIDIVE, (byte)3, Intent.ATTACK, this.damage.get(REGINLEIV_RECIDIVE_INDEX).output + (2 * this.inOverdrive()), reginleivRecidiveDmg, true));
                 break;
             case 3:
                 addToBot(new SetMoveAction(this, ARCADIA_KHLORON, (byte)4, Intent.STRONG_DEBUFF));
                 break;
             case 4:
-                addToBot(new SetMoveAction(this, SUPERNOVA, (byte)1, Intent.ATTACK, supernovaDmg + (3 * this.inOverdrive()), 1, false));
+                addToBot(new SetMoveAction(this, SUPERNOVA, (byte)1, Intent.ATTACK, this.damage.get(SUPERNOVA_INDEX).output + (3 * this.inOverdrive()), 1, false));
                 break;
             case 5:
                 addToBot(new SetMoveAction(this, ARCADIA_KHLORON, (byte)2, Intent.STRONG_DEBUFF));
@@ -342,9 +342,9 @@ public class ProtoBaha extends CustomMonster {
 
             if (tempPower.amount <= info.output) {
                 addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
-                addToBot(new SetMoveAction(this, (byte)6, Intent.STUN));
-//                this.setMove(UNCHAIN, (byte)6, Intent.STUN);
+                this.setMove(UNCHAIN, (byte)6, Intent.STUN);
                 this.createIntent();
+                addToBot(new SetMoveAction(this, (byte)6, Intent.STUN));
             }
             tempPower.lowerAmount(info.output);
             return;
@@ -352,8 +352,9 @@ public class ProtoBaha extends CustomMonster {
 
         if (!this.isDying && this.currentHealth * 2 <= this.maxHealth && this.isBeforePhase2Transition) {
             addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
-            addToBot(new SetMoveAction(this, UNCHAIN, (byte)5, Intent.UNKNOWN));
+            this.setMove(UNCHAIN, (byte)5, Intent.UNKNOWN);
             this.createIntent();
+            addToBot(new SetMoveAction(this, UNCHAIN, (byte)5, Intent.UNKNOWN));
         }
 
     }

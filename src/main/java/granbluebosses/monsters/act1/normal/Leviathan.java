@@ -104,7 +104,7 @@ public class Leviathan extends CustomMonster {
         }
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.azureBladeDmg, this.azureBladeHits, true));
+                addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.damage.get(AZURE_BLADE_INDEX).output, this.azureBladeHits, true));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, CASCADE, (byte)0, Intent.DEBUFF));
@@ -116,7 +116,7 @@ public class Leviathan extends CustomMonster {
         if (AbstractDungeon.aiRng.randomBoolean()){
             addToBot(new SetMoveAction(this, CASCADE, (byte)0, Intent.DEBUFF));
         } else {
-            addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.azureBladeDmg, this.azureBladeHits, true));
+            addToBot(new SetMoveAction(this, AZURE_BLADE, (byte)1, Intent.ATTACK, this.damage.get(AZURE_BLADE_INDEX).output, this.azureBladeHits, true));
         }
     }
 
@@ -127,7 +127,7 @@ public class Leviathan extends CustomMonster {
             if (AbstractDungeon.aiRng.randomBoolean()){
                 this.setMove(CASCADE, (byte)0, Intent.DEBUFF);
             } else {
-                this.setMove(AZURE_BLADE, (byte)1, Intent.ATTACK, this.azureBladeDmg, this.azureBladeHits, true);
+                this.setMove(AZURE_BLADE, (byte)1, Intent.ATTACK, this.damage.get(AZURE_BLADE_INDEX).output, this.azureBladeHits, true);
             }
         }
     }

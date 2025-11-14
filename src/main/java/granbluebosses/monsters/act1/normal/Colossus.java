@@ -103,7 +103,7 @@ public class Colossus extends CustomMonster {
                 addToBot(new SetMoveAction(this, FORCE_FIELD, (byte)1, Intent.DEFEND));
                 break;
             case 1:
-                addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.igniteDmg, 1, false));
+                addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
                 break;
         }
     }
@@ -112,7 +112,7 @@ public class Colossus extends CustomMonster {
         if (AbstractDungeon.aiRng.randomBoolean()){
             addToBot(new SetMoveAction(this, FORCE_FIELD, (byte)1, Intent.DEFEND));
         } else {
-            addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.igniteDmg, 1, false));
+            addToBot(new SetMoveAction(this, IGNITE, (byte)0, Intent.ATTACK, this.damage.get(IGNITE_INDEX).output, 1, false));
         }
     }
 

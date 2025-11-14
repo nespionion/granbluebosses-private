@@ -70,7 +70,7 @@ public class Shiva extends CustomMonster {
 
     public static final int SRI_RUDRAM_INDEX = 0;
     public static final int AWAKEN_INNER_EYE_INDEX = 1;
-    public static final int SRI_RUDRAM_EMPOWERED_INDEX = 0;
+    public static final int SRI_RUDRAM_EMPOWERED_INDEX = 2;
 
     public Shiva() {
         super(MONSTER_NAME, MONSTER_ID, MONSTER_MAX_HP, MONSTER_HIT_BOX_X, MONSTER_HIT_BOX_Y, MONSTER_HIT_BOX_WIDTH, MONSTER_HIT_BOX_HEIGHT, MONSTER_IMG_URL, MONSTER_OFF_SET_X, MONSTER_OFF_SET_Y);
@@ -92,6 +92,7 @@ public class Shiva extends CustomMonster {
         }
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
+        this.state.setAnimation(0, "idle", true);
 
         this.damage.add(new DamageInfo(this, this.sriRudramDmg, DamageInfo.DamageType.NORMAL));
         this.damage.add(new DamageInfo(this, this.awakenInnerEyeDmg, DamageInfo.DamageType.NORMAL));
@@ -133,6 +134,9 @@ public class Shiva extends CustomMonster {
         addToBot(new VFXAction(new EmpowerEffect(this.hb.cX, this.hb.cY)));
         this.addToBot(new SFXAction("BUFF_1"));
 
+        this.state.setAnimation(0, "shield", false);
+        this.state.addAnimation(0, "idle", true, 0.0f);
+
         addToBot(new ApplyPowerAction(this, this, new VulnerablePower(this, rudraDebuffStacks+1, true)));
         addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, rudraBuffStacks), this.rudraBuffStacks));
     }
@@ -157,11 +161,12 @@ public class Shiva extends CustomMonster {
     protected void useAwakenInnerEye(){
 
         this.addToBot(new SFXAction("ATTACK_DEFECT_BEAM"));
-        this.addToBot(new VFXAction(this, new SweepingBeamEffect(this.hb.cX, this.hb.cY, this.flipHorizontal), 0.4F));
-        addToBot(new AnimateSlowAttackAction(this));
 
         addToBot(new ShoutAction(this, AWAKEN_DIALOG));
         addToBot(new SFXAction(Sounds.SHIVA_AWAKEN_DIALOG));
+
+        this.state.setAnimation(0, "attack", false);
+        this.state.addAnimation(0, "idle", true, 0.0f);
 
         addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(AWAKEN_INNER_EYE_INDEX), AbstractGameAction.AttackEffect.NONE));
         addToBot(new ApplyPowerAction(this, this, new PathOfDestruction(this)));
@@ -171,8 +176,11 @@ public class Shiva extends CustomMonster {
         if (this.currentHealth * this.OMEN_MULT <= this.maxHealth && this.trigger) {
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
+
+            this.setMove(AWAKEN_DIALOG, (byte) 2, Intent.ATTACK_BUFF, this.damage.get(AWAKEN_INNER_EYE_INDEX).output, 1, false);
+            this.createIntent();
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
-            addToBot(new SetMoveAction(this, AWAKEN_DIALOG, (byte) 2, Intent.ATTACK_BUFF, this.awakenInnerEyeDmg, 1, false));
+            addToBot(new SetMoveAction(this, AWAKEN_DIALOG, (byte) 2, Intent.ATTACK_BUFF, this.damage.get(AWAKEN_INNER_EYE_INDEX).output, 1, false));
             return;
         }
         if (AbstractDungeon.ascensionLevel >= 18) {
@@ -181,13 +189,13 @@ public class Shiva extends CustomMonster {
         }
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, this.sriRudramDmg, 1, false));
+                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, this.damage.get(SRI_RUDRAM_INDEX).output, 1, false));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, RUDRA, (byte) 0, Intent.BUFF));
                 break;
             case 2:
-                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.sriRudramDmg * awakenInnerEyeMult), 1, false));
+                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.damage.get(SRI_RUDRAM_EMPOWERED_INDEX).output), 1, false));
                 break;
         }
     }
@@ -195,13 +203,13 @@ public class Shiva extends CustomMonster {
     protected void prepareIntentA17() {
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, this.sriRudramDmg, 1, false));
+                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, this.damage.get(SRI_RUDRAM_INDEX).output, 1, false));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, RUDRA, (byte) 0, Intent.BUFF));
                 break;
             case 2:
-                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.sriRudramDmg * awakenInnerEyeMult), 1, false));
+                addToBot(new SetMoveAction(this, SRI_RUDRAM, (byte) 1, Intent.ATTACK, (int)(this.damage.get(SRI_RUDRAM_EMPOWERED_INDEX).output), 1, false));
                 break;
         }
     }

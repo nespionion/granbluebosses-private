@@ -130,7 +130,7 @@ public class Yggdrasil extends CustomMonster {
         }
         switch (this.nextMove) {
             case 0:
-                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false));
+                addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
                 break;
             case 1:
                 addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
@@ -142,7 +142,7 @@ public class Yggdrasil extends CustomMonster {
         if (AbstractDungeon.aiRng.randomBoolean()) {
             addToBot(new SetMoveAction(this, LUMINOX_GENESI, (byte)0, Intent.DEBUFF));
         } else {
-            addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false));
+            addToBot(new SetMoveAction(this, AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false));
         }
     }
 
@@ -153,7 +153,7 @@ public class Yggdrasil extends CustomMonster {
             if (AbstractDungeon.aiRng.randomBoolean()) {
                 this.setMove(LUMINOX_GENESI, (byte)0, Intent.DEBUFF);
             } else {
-                this.setMove(AXIS_MUNDI, (byte)1, Intent.ATTACK, this.axisMundiDmg, 1, false);
+                this.setMove(AXIS_MUNDI, (byte)1, Intent.ATTACK, this.damage.get(AXIS_MUNDI_INDEX).output, 1, false);
             }
         }
     }

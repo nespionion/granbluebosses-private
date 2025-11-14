@@ -192,6 +192,8 @@ public class Grimnir extends CustomMonster {
             this.trigger = false;
             addToTop(new RemoveSpecificPowerAction(this, this, StanceOmen.POWER_ID));
             addToBot(new TextAboveCreatureAction(this, "DANGER!"));
+            this.setMove(HOLY_RAY_OF_PURIFICATION, (byte) 2, Intent.ATTACK_BUFF, this.holyRayOfPurificationDmg, 1, false);
+            this.createIntent();
             addToBot(new SetMoveAction(this, HOLY_RAY_OF_PURIFICATION, (byte) 2, Intent.ATTACK_BUFF, this.holyRayOfPurificationDmg, 1, false));
             return;
         }

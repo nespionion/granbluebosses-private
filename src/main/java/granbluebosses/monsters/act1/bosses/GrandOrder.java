@@ -324,19 +324,19 @@ public class GrandOrder extends CustomMonster {
     protected void prepareIntentPhase1(){
         switch (this.nextMove) {
             case 1:
-                addToBot(new SetMoveAction(this, SPINNING_SLASH, (byte)2, Intent.ATTACK, spinningSlashDmg, spinningSlashHits, true));
+                addToBot(new SetMoveAction(this, SPINNING_SLASH, (byte)2, Intent.ATTACK, this.damage.get(SPINNING_SLASH_INDEX).output, spinningSlashHits, true));
                 break;
             case 2:
                 addToBot(new SetMoveAction(this, PRISM_HALO, (byte)3, Intent.DEFEND_BUFF));
                 break;
             case 3:
-                addToBot(new SetMoveAction(this, BISECTION, (byte)4, Intent.ATTACK_DEBUFF, spinningSlashDmg, 1, false));
+                addToBot(new SetMoveAction(this, BISECTION, (byte)4, Intent.ATTACK_DEBUFF, this.damage.get(BISECTION_INDEX).output, 1, false));
                 break;
             case 4:
                 addToBot(new SetMoveAction(this, PRISM_HALO, (byte)1, Intent.DEFEND_BUFF));
                 break;
             case 5:
-                addToBot(new SetMoveAction(this, SPINNING_SLASH, (byte)3, Intent.ATTACK, spinningSlashDmg, spinningSlashHits, true));
+                addToBot(new SetMoveAction(this, SPINNING_SLASH, (byte)3, Intent.ATTACK, this.damage.get(SPINNING_SLASH_INDEX).output, spinningSlashHits, true));
                 break;
             default:
                 addToBot(new SetMoveAction(this, PRISM_HALO, (byte)1, Intent.DEFEND_BUFF));
@@ -351,10 +351,10 @@ public class GrandOrder extends CustomMonster {
                 addToBot(new SetMoveAction(this, CONJUNCTION, (byte)2, Intent.ATTACK));
                 break;
             case 2:
-                addToBot(new SetMoveAction(this, OPPOSITION, (byte)3, Intent.ATTACK_DEBUFF, this.oppositionDmg, 1, false));
+                addToBot(new SetMoveAction(this, OPPOSITION, (byte)3, Intent.ATTACK_DEBUFF, this.damage.get(OPPOSITION_INDEX).output, 1, false));
                 break;
             case 3:
-                addToBot(new SetMoveAction(this, OPPOSITION, (byte)3, Intent.ATTACK_DEBUFF, this.oppositionDmg, 1, false));
+                addToBot(new SetMoveAction(this, OPPOSITION, (byte)3, Intent.ATTACK_DEBUFF, this.damage.get(OPPOSITION_INDEX).output, 1, false));
                 break;
             default:
                 addToBot(new SetMoveAction(this, CONJUNCTION, (byte)2, Intent.ATTACK));
