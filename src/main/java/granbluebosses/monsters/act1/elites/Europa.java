@@ -47,7 +47,7 @@ public class Europa extends CustomMonster {
     protected final int OMEN_MULT = 4;
     protected boolean firstTurn = true;
     protected int floralPrisonStacks = 2;
-    protected int manaBlastDmg = 5;
+    protected int manaBlastDmg = 4;
     protected int manaBlastHits = 3;
     protected int taurusBlightDmg = 5;
     protected int taurusBlightHits = 4;
@@ -77,10 +77,7 @@ public class Europa extends CustomMonster {
         }
         if (AbstractDungeon.ascensionLevel >= 18) {
             this.manaBlastHits += 1;
-        }
-        if (AbstractDungeon.ascensionLevel < 18){
-            this.taurusBlightDmg -= 1;
-            this.taurusBlightHits -= 1;
+            this.taurusBlightHits += 1;
         }
 
         this.loadAnimation(GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".atlas"), GranblueBosses.monsterPath(MONSTER_ANIM_URL + "/" + MONSTER_ANIM_URL + ".json"), 1.0F);
