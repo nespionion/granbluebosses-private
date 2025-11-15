@@ -19,9 +19,7 @@ import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.rewards.ColossusOmega;
-import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.events.CelesteEvent;
 import granbluebosses.events.ColossusEvent;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.powers.a_monsters.DebuffOnHit;
@@ -93,7 +91,7 @@ public class Colossus2 extends CustomMonster {
         if (AbstractDungeon.ascensionLevel >= 17){
             addToBot(new ApplyPowerAction(this, this, new DebuffOnHit(this, DebuffOnHit.AvailableDebuffs.VULNERABLE, 2)));
         }
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
     }

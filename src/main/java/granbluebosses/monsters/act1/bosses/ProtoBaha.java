@@ -24,7 +24,6 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
 import com.megacrit.cardcrawl.vfx.combat.LaserBeamEffect;
-import com.megacrit.cardcrawl.vfx.combat.OmegaFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
@@ -146,6 +145,9 @@ public class ProtoBaha extends CustomMonster {
         if (this.isDMCA){
             this.phase1Song = Sounds.MUSIC_ACT1_PROTOBAHA1;
             this.phase2Song = Sounds.MUSIC_ACT1_PROTOBAHA2;
+        } else {
+            this.phase1Song = "BOSS_BOTTOM";
+            this.phase2Song = "BOSS_CITY";
         }
 
         this.damage.add(new DamageInfo(this, this.skyfallDmg));
@@ -170,6 +172,7 @@ public class ProtoBaha extends CustomMonster {
     }
 
     public void usePreBattleAction() {
+        CardCrawlGame.music.fadeAll();
         AbstractDungeon.getCurrRoom().playBgmInstantly(this.phase1Song);
 
         StanceOmen omen = new StanceOmen(this);
@@ -362,16 +365,20 @@ public class ProtoBaha extends CustomMonster {
     protected void phase2Transition(){
         this.isBeforePhase2Transition = false;
         this.state.setTimeScale(1.0F);
-
-        AnimationState.TrackEntry death = this.state.setAnimation(0, "death", false);
-        AnimationState.TrackEntry idle2 = this.state.addAnimation(0, "idle2", true, 0.0F);
-
         CardCrawlGame.music.fadeAll();
 
         AbstractDungeon.scene.fadeOutAmbiance();
 
-        AbstractDungeon.getCurrRoom().playBgmInstantly(this.phase2Song);
+//        AnimationState.TrackEntry death = this.state.setAnimation(0, "death", false);
+
         addToBot(new SFXAction(Sounds.PBHL_PHASE_TRANS));
+        addToBot(new RunTopLevelEffectAction(new SimplePlayVideoEffect(videoPath("protobaha/protobahatrans.webm"))));
+        this.state.addAnimation(0, "idle2", true, 0.0F);
+
+
+
+        AbstractDungeon.getCurrRoom().playBgmInstantly(this.phase2Song);
+
     }
 
     protected void useRagField(){

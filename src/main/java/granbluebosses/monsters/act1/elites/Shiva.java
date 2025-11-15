@@ -23,11 +23,9 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
 import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
-import com.megacrit.cardcrawl.vfx.combat.SweepingBeamEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.rewards.ShivaCall;
-import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.powers.a_monsters.PathOfDestruction;
@@ -101,6 +99,8 @@ public class Shiva extends CustomMonster {
 
     @Override
     public void usePreBattleAction() {
+
+        AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         if (ConfigMenu.enableDMCAMusic){
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_ELITE_SHIVA);
         } else {

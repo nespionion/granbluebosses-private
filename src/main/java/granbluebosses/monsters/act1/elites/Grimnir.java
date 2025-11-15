@@ -18,7 +18,6 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.LaserBeamEffect;
-import com.megacrit.cardcrawl.vfx.combat.MindblastEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
@@ -103,8 +102,10 @@ public class Grimnir extends CustomMonster {
     @Override
     public void usePreBattleAction() {
         if (ConfigMenu.enableDMCAMusic){
+            CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_ELITE_GRIMNIR);
         } else {
+            CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly("ELITE");
         }
 

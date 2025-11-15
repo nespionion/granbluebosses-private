@@ -24,10 +24,8 @@ import com.megacrit.cardcrawl.vfx.combat.IntimidateEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.rewards.CelesteOmega;
-import granbluebosses.cards.rewards.ColossusOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.events.CelesteEvent;
-import granbluebosses.events.RuinsEvent;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.powers.a_monsters.DebuffOnHit;
 import granbluebosses.util.Sounds;
@@ -87,7 +85,7 @@ public class Celeste2 extends CustomMonster {
     public void usePreBattleAction() {
         StanceOmen omen = new StanceOmen(this);
         omen.setUpOmen(OMEN_MULT);
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
         if (AbstractDungeon.ascensionLevel >= 17){

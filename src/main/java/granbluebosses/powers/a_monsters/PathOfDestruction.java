@@ -1,13 +1,9 @@
 package granbluebosses.powers.a_monsters;
 
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
-import com.megacrit.cardcrawl.actions.utility.UseCardAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import granbluebosses.monsters.act1.normal.Leviathan2;
 import granbluebosses.powers.BasePower;
 
 import static granbluebosses.GranblueBosses.makeID;

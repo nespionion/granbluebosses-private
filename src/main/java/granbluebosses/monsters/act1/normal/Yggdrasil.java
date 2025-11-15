@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.actions.common.SetMoveAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.DexterityPower;
@@ -75,6 +74,7 @@ public class Yggdrasil extends CustomMonster {
     public void usePreBattleAction() {
         super.usePreBattleAction();
         if (ConfigMenu.enableDMCAMusic){
+            CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
     }

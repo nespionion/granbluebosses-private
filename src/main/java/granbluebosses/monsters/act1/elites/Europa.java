@@ -12,26 +12,18 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Dazed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.EntanglePower;
 import com.megacrit.cardcrawl.powers.RegenerateMonsterPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
-import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
-import com.megacrit.cardcrawl.vfx.combat.EntangleEffect;
-import com.megacrit.cardcrawl.vfx.combat.SweepingBeamEffect;
+import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.rewards.EuropaCall;
-import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
-import granbluebosses.powers.a_monsters.PathOfDestruction;
 import granbluebosses.util.Sounds;
 
 import java.util.ArrayList;
@@ -100,6 +92,8 @@ public class Europa extends CustomMonster {
 
     @Override
     public void usePreBattleAction() {
+
+        AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         if (ConfigMenu.enableDMCAMusic){
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_ELITE_EUROPA);
         } else {
@@ -146,7 +140,8 @@ public class Europa extends CustomMonster {
         this.state.addAnimation(0, "idle", true, 0.0f);
 
         for (int i = 0; i < this.manaBlastHits; i++){
-            addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(MANA_BLAST_INDEX), AbstractGameAction.AttackEffect.LIGHTNING));
+            this.addToTop(new VFXAction(new LightningEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.drawY), 0.2f));
+            addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(MANA_BLAST_INDEX), AbstractGameAction.AttackEffect.NONE));
         }
     }
 
@@ -157,7 +152,13 @@ public class Europa extends CustomMonster {
         this.state.setAnimation(0, "taurus", false);
         this.state.addAnimation(0, "idle", true, 0.0f);
 
-        addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(TAURUS_BLIGHT_INDEX), AbstractGameAction.AttackEffect.LIGHTNING));
+
+
+        for (int i = 0; i < this.taurusBlightHits; i++){
+            this.addToTop(new VFXAction(new LightningEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.drawY), 0.2f));
+            this.addToTop(new SFXAction("ORB_LIGHTNING_EVOKE"));
+            addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(TAURUS_BLIGHT_INDEX), AbstractGameAction.AttackEffect.NONE));
+        }
 
         addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, this.taurusBlightStacks + 1)));
         addToBot(new ApplyPowerAction(this, this, new RegenerateMonsterPower(this, this.taurusBlightStacks)));

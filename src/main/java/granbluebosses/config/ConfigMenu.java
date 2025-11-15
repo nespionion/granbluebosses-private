@@ -1,8 +1,6 @@
 package granbluebosses.config;
 
 import basemod.EasyConfigPanel;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.helpers.FontHelper;
 import granbluebosses.GranblueBosses;
 
 public class ConfigMenu extends EasyConfigPanel {

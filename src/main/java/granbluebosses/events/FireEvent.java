@@ -8,10 +8,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.BlueCandle;
 import com.megacrit.cardcrawl.relics.BottledFlame;
 import com.megacrit.cardcrawl.relics.DeadBranch;
 import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
@@ -50,6 +48,7 @@ public class FireEvent extends PhasedEvent {
                         }))
                 .addOption(new TextPhase.OptionInfo(OPTIONS[1]).enabledCondition(() -> !AbstractDungeon.player.potions.isEmpty(), OPTIONS[2])
                         .setOptionResult((i)->{
+                            AbstractDungeon.player.removePotion(AbstractDungeon.player.potions.get(0));
                             this.checkForUncommonRelic();
                         }))
                 .addOption(new TextPhase.OptionInfo(OPTIONS[3] + this.dmgAmt + OPTIONS[4]).enabledCondition(() -> true, OPTIONS[3] + this.dmgAmt + OPTIONS[4])

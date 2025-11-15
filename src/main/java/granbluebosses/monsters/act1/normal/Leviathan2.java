@@ -12,23 +12,18 @@ import com.megacrit.cardcrawl.actions.common.SetMoveAction;
 import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.red.Bludgeon;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.FrailPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.vfx.combat.HeartBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.rewards.ColossusOmega;
 import granbluebosses.cards.rewards.LeviathanOmega;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.events.CelesteEvent;
 import granbluebosses.events.LeviathanEvent;
-import granbluebosses.powers.StanceOmen;
 import granbluebosses.powers.a_monsters.DebuffOnHit;
 import granbluebosses.powers.a_monsters.EbbTidePower;
 import granbluebosses.util.Sounds;
@@ -95,7 +90,7 @@ public class Leviathan2 extends CustomMonster {
     public void usePreBattleAction() {
         super.usePreBattleAction();
 
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
 

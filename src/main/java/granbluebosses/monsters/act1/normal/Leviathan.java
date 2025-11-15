@@ -65,7 +65,7 @@ public class Leviathan extends CustomMonster {
     @Override
     public void usePreBattleAction() {
         super.usePreBattleAction();
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
     }

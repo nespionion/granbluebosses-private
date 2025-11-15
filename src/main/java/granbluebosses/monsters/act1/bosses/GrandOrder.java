@@ -3,16 +3,12 @@ package granbluebosses.monsters.act1.bosses;
 import VideoTheSpire.actions.RunTopLevelEffectAction;
 import VideoTheSpire.effects.SimplePlayVideoEffect;
 import basemod.abstracts.CustomMonster;
-import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.ShoutAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
-import com.megacrit.cardcrawl.actions.unique.CanLoseAction;
-import com.megacrit.cardcrawl.actions.unique.CannotLoseAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -23,6 +19,7 @@ import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
 import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
+import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
@@ -33,10 +30,7 @@ import granbluebosses.relics.grandorder.CosmicSword;
 import granbluebosses.relics.grandorder.ShieldOfLamentation;
 import granbluebosses.util.Sounds;
 
-import java.util.ArrayList;
-
 import static granbluebosses.GranblueBosses.*;
-import static granbluebosses.GranblueBosses.monsterPath;
 
 public class GrandOrder extends CustomMonster {
     protected static final String MONSTER_NAME = "Grand Order";
@@ -231,6 +225,10 @@ public class GrandOrder extends CustomMonster {
             this.phase1Song = Sounds.MUSIC_ACT1_GRANDORDER1;
             this.phase2Song = Sounds.MUSIC_ACT1_GRANDORDER2;
             this.phase3Song = Sounds.MUSIC_ACT1_GRANDORDER3;
+        } else {
+            this.phase1Song = "BOSS_BOTTOM";
+            this.phase2Song = "BOSS_CITY";
+            this.phase3Song = "BOSS_BEYOND";
         }
 
         this.gammaRay1Ready = true; // Change to false after first Gamma Ray
@@ -248,6 +246,7 @@ public class GrandOrder extends CustomMonster {
     @Override
     public void usePreBattleAction() {
         super.usePreBattleAction();
+        CardCrawlGame.music.fadeAll();
         AbstractDungeon.getCurrRoom().playBgmInstantly(this.phase1Song);
     }
 
@@ -406,7 +405,8 @@ public class GrandOrder extends CustomMonster {
         this.state.setAnimation(0, "idle2", true);
         this.addToBot(new ApplyPowerAction(this, this, new WormholePower(this, this.rulerOfFateThreshold)));
 
-        // TODO Test BGM Transition
+
+        CardCrawlGame.music.fadeAll();
         AbstractDungeon.getCurrRoom().playBgmInstantly(this.phase2Song);
         if (this.isDMCA) {
             CardCrawlGame.music.precacheTempBgm(this.phase3Song);
@@ -470,12 +470,17 @@ public class GrandOrder extends CustomMonster {
         if (Settings.FAST_MODE) {
             vfxSpeed = 0.0F;
         }
-        addToBot(new ShoutAction(this, OPPOSITION_DIALOG, 1.0F, 2.0F));
+//        addToBot(new ShoutAction(this, OPPOSITION_DIALOG, 1.0F, 2.0F));
         addToBot(new SFXAction(Sounds.GO_OPPOSITION_DIALOG));
 
-        this.state.setAnimation(0, "attack2", false);
-        addToBot(new VFXAction(new GoldenSlashEffect(AbstractDungeon.player.hb.cX * Settings.scale, AbstractDungeon.player.hb.cY, true), vfxSpeed));
-        addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(OPPOSITION_INDEX), AbstractGameAction.AttackEffect.LIGHTNING));
+//        this.state.setAnimation(0, "attack2", false);
+//        addToBot(new VFXAction(new GoldenSlashEffect(AbstractDungeon.player.hb.cX * Settings.scale, AbstractDungeon.player.hb.cY, true), vfxSpeed));
+//        this.addToTop(new VFXAction(new LightningEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.drawY), 0.2f));
+
+        addToBot(new RunTopLevelEffectAction(new SimplePlayVideoEffect(videoPath("grandorder/grandorder2attack.webm"))));
+
+        addToTop(new VFXAction(new CleaveEffect(true), 0.2f));
+        addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(OPPOSITION_INDEX), AbstractGameAction.AttackEffect.NONE));
         this.state.addAnimation(0, "idle2", true, 0.0F);
     }
 

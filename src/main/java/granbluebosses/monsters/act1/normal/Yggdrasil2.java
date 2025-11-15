@@ -14,7 +14,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.powers.DexterityPower;
+import com.megacrit.cardcrawl.powers.FrailPower;
+import com.megacrit.cardcrawl.powers.VulnerablePower;
+import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -22,13 +25,10 @@ import com.megacrit.cardcrawl.vfx.combat.HeartBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.cards.rewards.YggdrasilOmega;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.events.CelesteEvent;
 import granbluebosses.events.YggdrasilEvent;
 import granbluebosses.powers.StanceOmen;
-import granbluebosses.powers.a_monsters.DebuffOnHit;
 import granbluebosses.util.Sounds;
 
 import java.util.ArrayList;
@@ -101,6 +101,7 @@ public class Yggdrasil2 extends CustomMonster {
         super.usePreBattleAction();
 
         if (ConfigMenu.enableDMCAMusic){
+            CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
     }

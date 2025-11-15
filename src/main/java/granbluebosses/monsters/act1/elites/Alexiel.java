@@ -3,7 +3,6 @@ package granbluebosses.monsters.act1.elites;
 import basemod.abstracts.CustomMonster;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateFastAttackAction;
-import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
 import com.megacrit.cardcrawl.actions.animations.ShoutAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
@@ -14,7 +13,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.FrailPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
@@ -22,7 +22,6 @@ import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.rewards.AlexielCall;
-import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.Marked;
 import granbluebosses.powers.a_monsters.MirrorBlade2;
@@ -87,6 +86,7 @@ public class Alexiel extends CustomMonster {
     @Override
     public void usePreBattleAction() {
         super.usePreBattleAction();
+        CardCrawlGame.music.fadeAll();
         if (ConfigMenu.enableDMCAMusic){
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_ELITE_ALEX);
         } else {

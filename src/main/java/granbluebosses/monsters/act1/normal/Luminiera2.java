@@ -13,20 +13,16 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.BarricadePower;
-import com.megacrit.cardcrawl.powers.BlurPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
-import granbluebosses.cards.rewards.LeviathanOmega;
 import granbluebosses.cards.rewards.LuminieraOmega;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.events.CelesteEvent;
 import granbluebosses.events.LuminieraEvent;
 import granbluebosses.powers.StanceOmen;
-import granbluebosses.powers.a_monsters.DebuffOnHit;
 import granbluebosses.util.Sounds;
 
 import java.util.ArrayList;
@@ -94,7 +90,7 @@ public class Luminiera2 extends CustomMonster {
             this.useAegisMerge();
         }
 
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
     }

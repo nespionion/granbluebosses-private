@@ -113,7 +113,7 @@
     ],
     "OPTIONS": [
       "[Quickly! Throw something at it!] Permanently remove a #rrandom card from your deck.",
-      "[Attempt to capture it] #rLose #ra #rrandom #rpotion. 50% #gGet #gan #gUncommon #gRelic.",
+      "[Attempt to capture it] #rLose #ryour #rleftmost #rpotion. 50% #gGet #gan #gUncommon #gRelic.",
       "Missing a bottle.",
       "[Hide and wait it out] 12% #gGet #gan #gRare #gRelic. Also, 50% #rLose #r",
       " HP.",
@@ -163,7 +163,7 @@
     "NAME": "Candles",
     "DESCRIPTIONS": [
       "You find some peculiarly arranged candles at the entrance of a cave. Most of them are lit up.",
-      "The now lit candle illuminates some ~#yGOLD~ underneath the wax.",
+      "The now lit candle illuminates some #y~GOLD~ underneath the wax.",
       "As you put out the candle's light, you feel relaxed. Your mind feels sharper, less clouded by distractions.",
       "You take one of the candles for yourself. Soon after, you start feeling #yashamed for stealing it."
     ],

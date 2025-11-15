@@ -24,7 +24,6 @@ import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.cards.rewards.TiamatOmega;
 import granbluebosses.config.ConfigMenu;
-import granbluebosses.events.CelesteEvent;
 import granbluebosses.events.TiamatEvent;
 import granbluebosses.powers.StanceOmen;
 import granbluebosses.powers.a_monsters.DebuffOnHit;
@@ -105,7 +104,7 @@ public class Tiamat2 extends CustomMonster {
         addToTop(new ApplyPowerAction(this, this, omen));
         super.usePreBattleAction();
 
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
     }

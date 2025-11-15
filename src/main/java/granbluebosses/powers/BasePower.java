@@ -1,7 +1,5 @@
 package granbluebosses.powers;
 
-import granbluebosses.util.GeneralUtils;
-import granbluebosses.util.TextureLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +10,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import granbluebosses.util.GeneralUtils;
+import granbluebosses.util.TextureLoader;
 
 public abstract class BasePower extends AbstractPower {
     private static PowerStrings getPowerStrings(String ID)

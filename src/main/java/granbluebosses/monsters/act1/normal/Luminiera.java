@@ -7,20 +7,16 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.red.LimitBreak;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.BarricadePower;
-import com.megacrit.cardcrawl.powers.BlurPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.vfx.combat.EmpowerEffect;
 import granbluebosses.GranblueBosses;
 import granbluebosses.acts.Act1Skies;
 import granbluebosses.config.ConfigMenu;
 import granbluebosses.powers.StanceOmen;
-import granbluebosses.powers.a_monsters.EbbTidePower;
 import granbluebosses.util.Sounds;
 
 import static granbluebosses.GranblueBosses.makeID;
@@ -77,7 +73,7 @@ public class Luminiera extends CustomMonster {
         StanceOmen omen = new StanceOmen(this);
         omen.setUpOmen(OMEN_DESCRIPTION);
         addToTop(new ApplyPowerAction(this, this, omen));
-        if (ConfigMenu.enableDMCAMusic){
+        if (ConfigMenu.enableDMCAMusic){CardCrawlGame.music.fadeAll();
             AbstractDungeon.getCurrRoom().playBgmInstantly(Sounds.MUSIC_ACT1_BATTLE);
         }
         super.usePreBattleAction();

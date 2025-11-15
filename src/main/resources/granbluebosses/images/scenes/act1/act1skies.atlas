@@ -4,7 +4,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-campfire
+fight-cropped-tiamat
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -17,7 +17,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-luminiera
+fight-cropped-celeste
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -30,7 +30,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-europa
+fight-cropped-protobaha2
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -43,7 +43,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-grandorder1
+fight-cropped-colossus
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -56,7 +56,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-celeste
+fight-cropped-yggy
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -69,7 +69,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-grandorder2
+fight-cropped-shiva
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -82,7 +82,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bg
+campfire
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -95,7 +95,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-yggy
+fight-cropped-grimnir
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -121,7 +121,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-protobaha1
+fight-cropped-alex
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -134,7 +134,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-alex
+fight-cropped-grandorder1
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -147,7 +147,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-colossus
+fight-cropped-luminiera
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -173,7 +173,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-shiva
+bg
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -186,7 +186,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-grimnir
+fight-cropped-grandorder2
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -199,7 +199,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-leviathan
+fight-cropped-protobaha1
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -212,7 +212,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-protobaha2
+fight-cropped-leviathan
   rotate: false
   xy: 2, 2
   size: 1920, 1134
@@ -225,7 +225,7 @@ size: 2048,2048
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-fight-cropped-tiamat
+fight-cropped-europa
   rotate: false
   xy: 2, 2
   size: 1920, 1134

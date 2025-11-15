@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 import granbluebosses.GranblueBosses;
 
 public class LushEvent extends PhasedEvent {

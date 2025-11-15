@@ -2,12 +2,12 @@ package granbluebosses.relics;
 
 import basemod.abstracts.CustomRelic;
 import basemod.helpers.RelicType;
-import granbluebosses.util.GeneralUtils;
-import granbluebosses.util.TextureLoader;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.RelicStrings;
+import granbluebosses.util.GeneralUtils;
+import granbluebosses.util.TextureLoader;
 
 import static granbluebosses.GranblueBosses.relicPath;
 
