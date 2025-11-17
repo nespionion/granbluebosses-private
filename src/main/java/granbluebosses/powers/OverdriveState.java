@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import granbluebosses.monsters.act1.bosses.ProtoBaha;
 
 import static granbluebosses.GranblueBosses.makeID;
 
@@ -31,9 +32,12 @@ public class OverdriveState extends BasePower {
 
     public void lowerAmount(int damageAmount){
         if (this.amount > damageAmount) {
-            this.amount = this.amount - damageAmount;
+            this.amount -= damageAmount;
         } else {
-            addToBot(new ApplyPowerAction(this.owner, this.owner, new StandbyState(this.owner, this.amount2)));
+//            addToBot(new ApplyPowerAction(this.owner, this.owner, new StandbyState(this.owner, this.amount2)));
+//            if (this.owner instanceof ProtoBaha){
+//                ((ProtoBaha) this.owner).setupStandbyState();
+//            }
             addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
         }
 

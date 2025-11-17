@@ -10,7 +10,7 @@
     "NAME": "Blue Crystal",
     "FLAVOR": "A crystal that brilliantly shines in the light.",
     "DESCRIPTIONS": [
-      "The first time each combat that you gain #yStrength, #yDexterity, #yFocus, or #yEnergy, gain 1 more."
+      "Whichever happens first: NL 1. The first time each combat that you gain #yStrength, #yDexterity, #yFocus, gain 1 more. NL 2. The first time each combat that you change stances, gain 1 Energy."
     ]
   },
   "${modID}:BlueCrystalBelial": {

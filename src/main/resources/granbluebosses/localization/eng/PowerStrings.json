@@ -86,9 +86,11 @@
   "${modID}:BlueCrystalPower": {
     "NAME": "Blue Crystal",
     "DESCRIPTIONS": [
-      "The next ",
-      " time you gain #yStrength, #yDexterity, #yFocus, or #yEnergy, gain 1 more.",
-      " times you gain #yStrength, #yDexterity, #yFocus, or #yEnergy, gain 1 more."
+      "Whichever happens first: NL 1. The next ",
+      " time you gain #yStrength, #yDexterity, #yFocus, gain 1 more. NL 2. The next ",
+      " time you change stances, gain 1 Energy.",
+      " times you gain #yStrength, #yDexterity, #yFocus, gain 1 more. NL 2. The next ",
+      " times you change stances, gain 1 Energy."
     ]
   },
   "${modID}:DebuffOnHit": {

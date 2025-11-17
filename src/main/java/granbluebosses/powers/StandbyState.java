@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import granbluebosses.monsters.act1.bosses.ProtoBaha;
 
 import static granbluebosses.GranblueBosses.makeID;
 
@@ -15,7 +16,6 @@ public class StandbyState extends BasePower{
     public static final String POWER_ID = makeID("StandbyState");
     private static final AbstractPower.PowerType TYPE = PowerType.DEBUFF;
     private static final boolean TURN_BASED = false;
-    public boolean canLowerAmount = false;
     private static PowerStrings getPowerStrings(String ID) {return CardCrawlGame.languagePack.getPowerStrings(ID);}
     private static PowerStrings powerStrings = getPowerStrings(POWER_ID);
 
@@ -32,14 +32,12 @@ public class StandbyState extends BasePower{
     }
 
     public void lowerAmount (int damageAmount){
-        if (!canLowerAmount){
-            this.updateDescription();
-            return;
-        }
         if (this.amount > damageAmount && !this.owner.hasPower(StunMonsterPower.POWER_ID)){
-            this.amount = this.amount-damageAmount;
+            this.amount -= damageAmount;
         } else if (!this.owner.hasPower(StunMonsterPower.POWER_ID)) {
-            addToBot(new ApplyPowerAction(this.owner, this.owner, new OverdriveState(this.owner, this.amount2)));
+            if (this.owner instanceof ProtoBaha){
+                ((ProtoBaha) this.owner).setupOverdriveState();
+            }
             addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
         }
 

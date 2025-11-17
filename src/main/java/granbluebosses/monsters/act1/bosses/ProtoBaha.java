@@ -85,6 +85,10 @@ public class ProtoBaha extends CustomMonster {
     protected boolean isDMCA = false;
     private String phase1Song = "BOSS_BOTTOM";
     private String phase2Song = "BOSS_CITY";
+    public int standbyStacks;
+    public int standbyStackIncrease;
+    public int overdriveStacks;
+    public int overdriveStacksIncrease;
 
     protected static final int SKYFALL_INDEX = 0;
     protected static final int REGINLEIV_INDEX = 1;
@@ -140,6 +144,23 @@ public class ProtoBaha extends CustomMonster {
             this.reginleivRecidiveHits = this.reginleivHits + 2;
         }
 
+        if (AbstractDungeon.ascensionLevel >= 19) {
+            this.standbyStacks = 30;
+            this.standbyStackIncrease = 20;
+            this.overdriveStacks = 50;
+            this.overdriveStacksIncrease = 20;
+        } else if (AbstractDungeon.ascensionLevel >= 9) {
+            this.standbyStacks = 15;
+            this.standbyStackIncrease = 10;
+            this.overdriveStacks = 35;
+            this.overdriveStacksIncrease = 15;
+        } else {
+            this.standbyStacks = 5;
+            this.standbyStackIncrease = 10;
+            this.overdriveStacks = 20;
+            this.overdriveStacksIncrease = 10;
+        }
+
 
         this.isDMCA = ConfigMenu.enableDMCAMusic;
         if (this.isDMCA){
@@ -180,11 +201,19 @@ public class ProtoBaha extends CustomMonster {
         addToTop(new ApplyPowerAction(this, this, omen));
         super.usePreBattleAction();
 
-        StandbyState standbyState = new StandbyState(this, 5);
-        standbyState.canLowerAmount = true;
+        this.setupStandbyState();
+    }
+
+    public void setupStandbyState(){
+        StandbyState standbyState = new StandbyState(this, this.standbyStacks);
         addToBot(new ApplyPowerAction(this, this, standbyState));
+        this.standbyStacks += this.standbyStackIncrease;
+    }
 
-
+    public void setupOverdriveState(){
+        OverdriveState overdriveState = new OverdriveState(this, this.overdriveStacks);
+        addToBot(new ApplyPowerAction(this, this, overdriveState));
+        this.overdriveStacks += this.overdriveStacksIncrease;
     }
 
     @Override
@@ -345,7 +374,7 @@ public class ProtoBaha extends CustomMonster {
 
             if (tempPower.amount <= info.output) {
                 addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
-                this.setMove(UNCHAIN, (byte)6, Intent.STUN);
+                this.setMove((byte)6, Intent.STUN);
                 this.createIntent();
                 addToBot(new SetMoveAction(this, (byte)6, Intent.STUN));
             }
@@ -503,9 +532,7 @@ public class ProtoBaha extends CustomMonster {
     }
 
     protected void stunTurn(){
-        if (this.hasPower(StandbyState.POWER_ID)){
-            ((StandbyState) this.getPower(StandbyState.POWER_ID)).canLowerAmount = true;
-        }
+        this.setupStandbyState();
     }
 
     @Override

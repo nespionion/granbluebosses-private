@@ -133,29 +133,29 @@ public class Europa extends CustomMonster {
     }
 
     protected void useManaBlast(){
-        this.state.setAnimation(0, "mana_burst", false);
-        this.state.addAnimation(0, "idle", true, 0.0f);
 
         for (int i = 0; i < this.manaBlastHits; i++){
             this.addToTop(new VFXAction(new LightningEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.drawY), 0.2f));
+            this.state.setAnimation(0, "mana_burst", false);
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(MANA_BLAST_INDEX), AbstractGameAction.AttackEffect.NONE));
         }
+
+        this.state.addAnimation(0, "idle", true, 0.0f);
     }
 
     protected void useTaurusBlight(){
         addToBot(new ShoutAction(this, TAURUS_DIALOG));
         addToBot(new SFXAction(Sounds.EUROPA_TAURUS_DIALOG));
 
-        this.state.setAnimation(0, "taurus", false);
-        this.state.addAnimation(0, "idle", true, 0.0f);
-
 
 
         for (int i = 0; i < this.taurusBlightHits; i++){
             this.addToTop(new VFXAction(new LightningEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.drawY), 0.2f));
-            this.addToTop(new SFXAction("ORB_LIGHTNING_EVOKE"));
+            this.state.setAnimation(0, "taurus", false);
             addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(TAURUS_BLIGHT_INDEX), AbstractGameAction.AttackEffect.NONE));
         }
+
+        this.state.addAnimation(0, "idle", true, 0.0f);
 
         addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, this.taurusBlightStacks + 1)));
         addToBot(new ApplyPowerAction(this, this, new RegenerateMonsterPower(this, this.taurusBlightStacks)));

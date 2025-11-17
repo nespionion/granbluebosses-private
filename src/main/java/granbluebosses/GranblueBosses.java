@@ -75,11 +75,12 @@ public class GranblueBosses implements
     // TODO IMPORTANT :
     /*
 
-    2. Test attack animations for each elite & boss
-    4. Edit the Leviathan texture so the player does not look like they are in the water
+    2. Test attack animations for each elite & boss (Grimnir and Alex not tested)
     5. Test the event adding after omega fights
-    6. Test ruins event rewards amount
     7. Test new triggers and enemy AI
+    9. Fix PBHL transition anim
+    10. Scale PBHL transition anim video to higher size
+    11. Remake Shiva to separate the actions before path of des and after path of des
 
     * */
 

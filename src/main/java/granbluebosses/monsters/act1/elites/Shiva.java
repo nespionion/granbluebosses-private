@@ -168,10 +168,11 @@ public class Shiva extends CustomMonster {
         addToBot(new SFXAction(Sounds.SHIVA_AWAKEN_DIALOG));
 
         this.state.setAnimation(0, "attack", false);
-        this.state.addAnimation(0, "idle", true, 0.0f);
 
         addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(AWAKEN_INNER_EYE_INDEX), AbstractGameAction.AttackEffect.NONE));
         addToBot(new ApplyPowerAction(this, this, new PathOfDestruction(this)));
+
+        this.state.addAnimation(0, "idle", true, 0.0f);
     }
 
     protected void prepareIntent() {

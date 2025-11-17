@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.DexterityPower;
 import com.megacrit.cardcrawl.powers.FocusPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.stances.AbstractStance;
 import granbluebosses.powers.BasePower;
 
 import static granbluebosses.GranblueBosses.makeID;
@@ -53,14 +54,17 @@ public class BlueCrystalPower extends BasePower {
     }
 
     @Override
-    public void atEnergyGain() {
-        super.atEnergyGain();
-        if (this.enableEnergy){
-            this.enableStrength = false;
-            this.enableDexterity = false;
-            this.enableFocus = false;
-            this.enableEnergy = false;
-            addToBot(new GainEnergyAction(1));
+    public void onChangeStance(AbstractStance oldStance, AbstractStance newStance) {
+        super.onChangeStance(oldStance, newStance);
+        this.enableStrength = false;
+        this.enableDexterity = false;
+        this.enableFocus = false;
+        this.enableEnergy = false;
+        addToBot(new GainEnergyAction(1));
+        if (this.amount > 1){
+            this.amount -= 1;
+            this.updateDescription();
+        } else {
             addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
         }
     }
@@ -91,7 +95,8 @@ public class BlueCrystalPower extends BasePower {
                 this.updateDescription();
             } else {
                 addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
-            }        } else if (enableFocus && power.ID.equals(FocusPower.POWER_ID) && target.equals(this.owner)) {
+            }
+        } else if (enableFocus && power.ID.equals(FocusPower.POWER_ID) && target.equals(this.owner)) {
             this.enableStrength = false;
             this.enableDexterity = false;
             this.enableFocus = false;
@@ -102,7 +107,8 @@ public class BlueCrystalPower extends BasePower {
                 this.updateDescription();
             } else {
                 addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
-            }        }
+            }
+        }
     }
 
     @Override
@@ -111,9 +117,9 @@ public class BlueCrystalPower extends BasePower {
         this.name = powerStrings.NAME;
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
         if (this.amount == 1){
-            this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1];
+            this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[1]  + this.amount + DESCRIPTIONS[2];
         } else {
-            this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[2];
+            this.description = DESCRIPTIONS[0] + this.amount + DESCRIPTIONS[3]  + this.amount + DESCRIPTIONS[4];
         }
     }
 }
